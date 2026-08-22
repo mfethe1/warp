@@ -1,0 +1,24 @@
+{
+  "label": "PROXY (predictability) + RECOMPUTATION (byte/IOP algebra)",
+  "A_successor_predictability": {
+    "n_null": 5,
+    "top1_successor_prob_observed": 0.09906,
+    "top1_successor_prob_marginal_null_mean": 0.0796,
+    "top1_successor_prob_marginal_null_sd": 6e-05,
+    "excess_over_null": 0.01945,
+    "note": "marginal-permute null preserves per-layer expert popularity, destroys only cross-layer coupling"
+  },
+  "B_byte_algebra": {
+    "record_bytes": 12406784,
+    "physical_reads_per_token": 668.0,
+    "stream_ms_per_token": 1304.1,
+    "seek_ms_per_token_at_80us": 53.44,
+    "seek_fraction_of_read_time": 0.03937,
+    "perfect_copaging_ms_saved_per_token": 26.72,
+    "current_ms_per_token": 1357.5,
+    "budget_ms_per_token_for_15tps": 66.67,
+    "ms_gap_remaining_after_perfect_copaging": 1264.2,
+    "bytes_per_accepted_token_delta": 0.0,
+    "note": "Placement permutes WHERE records live; it does not change WHICH experts are demanded nor the 3029-page record size. d(bytes/accepted token)/d(layout) = 0 identically."
+  }
+}

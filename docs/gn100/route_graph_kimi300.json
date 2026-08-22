@@ -1,0 +1,44 @@
+{
+  "trace": "tests/trace_kimi_300.jsonl",
+  "trace_sha256": "06ad026c928d1c05eb59f0b1db55e1317c1899b1d3a687741ab5c49fdc014965",
+  "label": "PROXY (Kimi-Linear-shaped, NOT K3)",
+  "shape": {
+    "tokens": 300,
+    "layers": 26,
+    "topk": 8,
+    "experts": 256
+  },
+  "observed": {
+    "successor_entropy_bits": 5.2463,
+    "uniform_null_bits": 8.0,
+    "entropy_deficit_bits": 2.7537,
+    "entropy_pct_of_uniform": 65.58,
+    "modularity_Q": 0.6333,
+    "n_communities": 6,
+    "n_nodes_with_successors": 4878,
+    "n_edges": 167375,
+    "per_node_entropy_var": 0.6866
+  },
+  "null_uniform_resample": {
+    "n": 5,
+    "successor_entropy_bits_mean": 6.0289,
+    "successor_entropy_sd": 0.0006,
+    "modularity_Q_mean": 0.6314,
+    "modularity_Q_sd": 0.0076
+  },
+  "null_marginal_permute": {
+    "n": 5,
+    "successor_entropy_bits_mean": 5.7816,
+    "successor_entropy_sd": 0.0015,
+    "modularity_Q_mean": 0.5986,
+    "modularity_Q_sd": 0.0179
+  },
+  "gate": {
+    "accept": "modularity >0.15 AND entropy materially below uniform",
+    "reject": "modularity ~0 or entropy ~uniform -> DEAD",
+    "modularity_gt_0_15": true,
+    "entropy_below_uniform": 2.7537,
+    "modularity_excess_over_marginal_null": 0.0347,
+    "entropy_excess_over_marginal_null_bits": 0.5353
+  }
+}
