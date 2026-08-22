@@ -1,0 +1,122 @@
+{
+  "constants": {
+    "logical_gib_tok": 17.009,
+    "physical_gib_tok": 7.719,
+    "bw_measured_gib_s": 5.919,
+    "target_tok_s": 15.0,
+    "container_gib": 952.0,
+    "record_bytes": 12406784,
+    "k3_layers": 92,
+    "k3_topk": 16,
+    "measured_efficiency_vs_spec": 0.8531
+  },
+  "bw_table": [
+    {
+      "agg_bw_gib_s": 5.919,
+      "required_gib_per_accepted_token": 0.3946,
+      "byte_reduction_factor_still_needed": 19.562
+    },
+    {
+      "agg_bw_gib_s": 9.0,
+      "required_gib_per_accepted_token": 0.6,
+      "byte_reduction_factor_still_needed": 12.865
+    },
+    {
+      "agg_bw_gib_s": 11.838,
+      "required_gib_per_accepted_token": 0.7892,
+      "byte_reduction_factor_still_needed": 9.781
+    },
+    {
+      "agg_bw_gib_s": 12.0,
+      "required_gib_per_accepted_token": 0.8,
+      "byte_reduction_factor_still_needed": 9.649
+    },
+    {
+      "agg_bw_gib_s": 18.0,
+      "required_gib_per_accepted_token": 1.2,
+      "byte_reduction_factor_still_needed": 6.433
+    }
+  ],
+  "placement": {
+    "colibri_pair_9_plus_3": {
+      "uniform_hash_aggregate_gib_s": 6.0,
+      "bw_proportional_aggregate_gib_s": 12.0,
+      "fast_drive_alone_gib_s": 9.0,
+      "uniform_hash_vs_fast_alone": 0.6667,
+      "claimed_speedup_1.33_matches_proportional": 1.3333
+    },
+    "matched_pair_5.919x2": {
+      "uniform_hash_aggregate_gib_s": 11.838
+    }
+  },
+  "batch1_imbalance": {
+    "sharded_per_layer_barrier": {
+      "n": 16,
+      "E_max_records": 9.571,
+      "slowdown_vs_ideal": 0.1964
+    },
+    "full_readahead_per_token": {
+      "n": 1472,
+      "E_max_records": 751.3,
+      "slowdown_vs_ideal": 0.0208
+    }
+  },
+  "capacity": {
+    "container_gib": 952.0,
+    "sharded_per_drive_gib": 476.0,
+    "duplicated_per_drive_gib": 952.0,
+    "usable_1TB_gib": 931.3225746154785,
+    "usable_2TB_gib": 1862.645149230957,
+    "note_1TB_too_small_for_duplication": true
+  },
+  "cost": [
+    {
+      "drive": "Samsung 990 Pro 2TB",
+      "iface": "PCIe 4.0 x4",
+      "spec_seq_read_MB_s": 7450,
+      "derated_effective_gib_s": 5.919,
+      "street_2TB_usd": 150,
+      "usd_per_effective_gib_s": 25.34
+    },
+    {
+      "drive": "WD SN850X 2TB",
+      "iface": "PCIe 4.0 x4",
+      "spec_seq_read_MB_s": 7300,
+      "derated_effective_gib_s": 5.8,
+      "street_2TB_usd": 140,
+      "usd_per_effective_gib_s": 24.14
+    },
+    {
+      "drive": "Crucial T705 2TB",
+      "iface": "PCIe 5.0 x4",
+      "spec_seq_read_MB_s": 14100,
+      "derated_effective_gib_s": 11.202,
+      "street_2TB_usd": 250,
+      "usd_per_effective_gib_s": 22.32
+    },
+    {
+      "drive": "Samsung 9100 Pro 2TB",
+      "iface": "PCIe 5.0 x4",
+      "spec_seq_read_MB_s": 14800,
+      "derated_effective_gib_s": 11.759,
+      "street_2TB_usd": 260,
+      "usd_per_effective_gib_s": 22.11
+    }
+  ],
+  "marginal": {
+    "single_drive_gib_s": 5.919,
+    "dual_duplicated_agg_gib_s": 11.838,
+    "gap_before": 19.562,
+    "gap_after": 9.781,
+    "gap_factor_reduction": 2.0,
+    "added_cost_usd": 150,
+    "usd_per_GiB_s_added": 25.34,
+    "ms_per_token_before": 1304.1,
+    "ms_per_token_after": 652.1,
+    "tok_s_before_no_algo_change": 0.7668,
+    "tok_s_after_no_algo_change": 1.5336,
+    "dual_sharded_effective_gib_s": 9.895,
+    "sharded_gap_after": 11.702,
+    "duplication_capacity_cost_gib": 952.0
+  }
+}
