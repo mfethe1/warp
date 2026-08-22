@@ -51,14 +51,32 @@ collapses the effect:
 
 - cells where B helps given A: **12/25**
 - marginal effect of B: mean **+0.173%**, max **+1.094%**, stdev **0.320%**
-- total physical prefetches issued across all 25 cells: **0**
+- total physical prefetches issued across all 25 cells: **23** (of which **1** was ever useful)
 
-## The decisive diagnostic: arm B never fetches anything
+## The decisive diagnostic: arm B is effectively fetch-free
 
-In every cell `prefetch_fetch == 0`. The EV candidate set — the previous token's experts
-at the next layer — is *already resident*, so `prefetch(k)` degenerates to a bare
-`move_to_end()`. Arm B has **no byte-moving mechanism on this trace**; it is a pure LRU
-recency perturbation, and every A+B vs A delta is cache-order noise, not prefetching.
+**Correction (verification rerun, 2026-08-22 18:45):** an earlier draft of this document
+stated `prefetch_fetch == 0` in *every* cell. That is wrong. Re-reading
+`exp6_debias.json` (`matched_pairs`), **24 of 25 cells issue exactly 0 prefetches**; one
+cell (cap=709, `prot_frac=0.6`) issues **23**, of which **1** is later demanded. Total
+across the sweep: 23 prefetches against 62,400 accesses = **0.037% of accesses**,
+**1 useful**. The conclusion is unchanged — and the corrected numbers make it stronger,
+not weaker (see below).
+
+The EV candidate set — the previous token's experts at the next layer — is almost always
+*already resident*, so `prefetch(k)` overwhelmingly degenerates to a bare `move_to_end()`.
+Arm B has **no material byte-moving mechanism on this trace**; it is a near-pure LRU
+recency perturbation, and essentially every A+B vs A delta is cache-order noise rather
+than prefetching.
+
+The decisive detail is *where* the non-zero fetches land. At the K3-equivalent operating
+point the cell with the **largest** marginal gain (cap=709, `prot_frac=0.5`,
+**+1.094%**) issues **0 prefetches** — its entire gain is eviction-order noise. The only
+cell that actually prefetches (`prot_frac=0.6`) gains just **+0.400%** with **1/23**
+prefetches useful (4.3% hit rate, i.e. 22 wasted physical reads). So the arm's best
+apparent result is *anti-correlated* with it doing any prefetching at all: benefit and
+mechanism are dissociated. That is a cleaner falsification of the preregistered mechanism
+than the original "always zero" claim.
 
 ### Sham control (N=20 seeds/cell)
 
@@ -92,9 +110,14 @@ later demanded: `dB_acc/d(prefetch) = (1 - P(useful)) * RECORD_B / a >= 0`. Acce
 rate `a` is untouched by both arms — neither changes routing nor the verifier — so this is
 a pure numerator experiment, algebraically identical to bytes per accepted token.
 
-Empirically `f_prefetch = 0`, so B's term vanishes identically and
-`gain(A+B) ≡ gain(A)`, forcing `interaction ≡ 0`. This reproduces the exp10 structural
-result by a different route: **prefetch changes when a page is read, never whether.**
+Empirically `f_prefetch = 0` in 24/25 cells — and **exactly 0 at the K3-equivalent
+gate cell** (`B_prefetches_issued_at_best = 0`) — so B's term vanishes there and
+`gain(A+B) ≡ gain(A)`, forcing `interaction ≡ 0`. In the single cell that does fetch
+(cap=709, `prot_frac=0.6`, 23 issued / 1 useful), `P(useful) = 0.043`, so
+`dB_acc/d(prefetch) = 0.957 * RECORD_B / a > 0`: prefetching there is *net byte-additive*,
+i.e. the mechanism costs bytes in the only place it actually operates. Either way the
+sign is against arm B. This reproduces the exp10 structural result by a different route:
+**prefetch changes when a page is read, essentially never whether.**
 
 ## Artifacts
 
