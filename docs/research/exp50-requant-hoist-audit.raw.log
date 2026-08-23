@@ -1,0 +1,87 @@
+===== PIN fd0deabc62b6e2e86d245553f61e77397a48a3b8 =====
+--- quant_act call sites (src/model.c) ---
+415:static void quant_act(const float *x, int n, int g, int8_t *q, float *sc)
+444:        quant_act(x, in, g, m->xq, m->xs);
+4623:            quant_act(X + (size_t)t2 * in, in, g,
+--- vq_build_lut(m, call sites ---
+758:            vq_build_lut(m, gate_lut, h->codebook_id, m->x, lat,
+760:            vq_build_lut(m, up_lut, h->codebook_id + m->stages,
+786:            vq_build_lut(m, down_lut, h->codebook_id + 2 * m->stages,
+2782:    vq_build_lut(m, lut, cb_base, x, N, m->stages, m->cb_entries,
+3615:                vq_build_lut(m, lut_gate, h0->codebook_id + 0 * m->stages,
+3618:                vq_build_lut(m, lut_up, h0->codebook_id + 1 * m->stages,
+3676:                vq_build_lut(m, lut_gate, h->codebook_id + 0 * m->stages,
+3679:                vq_build_lut(m, lut_up, h0->codebook_id + 1 * m->stages,
+3726:                vq_build_lut(m, lut_down,
+4824:                vq_build_lut(m, lut_gu + (size_t)(2 * t) * lut_sz,
+4830:                vq_build_lut(m, lut_gu + (size_t)(2 * t + 1) * lut_sz,
+--- hoist flags ---
+3595:        int lut_done = 0, ok = 1;
+3613:            if (!lut_done) {
+3621:                lut_done = 1;
+3647:    int lut_ready = 0;
+3674:        if (!lut_ready) {
+3695:            lut_ready = 1;
+4792:    int lut_ready = 0;
+4822:        if (!lut_ready) {
+4837:            lut_ready = 1;
+--- other files quant site counts ---
+[vq.c] 0
+[simd_avx512.c] 0
+[waste.c] 0
+
+===== PIN 7f1fbba3 =====
+--- quant_act call sites (src/model.c) ---
+363:static void quant_act(const float *x, int n, int g, int8_t *q, float *sc)
+392:        quant_act(x, in, g, m->xq, m->xs);
+3420:            quant_act(X + (size_t)t2 * in, in, g,
+--- vq_build_lut(m, call sites ---
+2286:    vq_build_lut(m, lut, cb_base, x, N, m->stages, m->cb_entries,
+2841:                vq_build_lut(m, lut_gate, h0->codebook_id + 0 * m->stages,
+2844:                vq_build_lut(m, lut_up, h0->codebook_id + 1 * m->stages,
+2889:            vq_build_lut(m, lut_gate, h->codebook_id + 0 * m->stages,
+2892:            vq_build_lut(m, lut_up, h0->codebook_id + 1 * m->stages,
+3617:                vq_build_lut(m, lut_gu + (size_t)(2 * t) * lut_sz,
+3623:                vq_build_lut(m, lut_gu + (size_t)(2 * t + 1) * lut_sz,
+--- hoist flags ---
+2825:        int lut_done = 0, ok = 1;
+2839:            if (!lut_done) {
+2847:                lut_done = 1;
+2873:    int lut_ready = 0;
+2888:        if (!lut_ready) {
+2895:            lut_ready = 1;
+3585:    int lut_ready = 0;
+3615:        if (!lut_ready) {
+3630:            lut_ready = 1;
+--- other files quant site counts ---
+[vq.c] 0
+[simd_avx512.c] 0
+[waste.c] 0
+
+===== PIN 619b666a1c15404a947f92cf0f684d7c2f4c3dcd =====
+--- quant_act call sites (src/model.c) ---
+369:static void quant_act(const float *x, int n, int g, int8_t *q, float *sc)
+398:        quant_act(x, in, g, m->xq, m->xs);
+3416:            quant_act(X + (size_t)t2 * in, in, g,
+--- vq_build_lut(m, call sites ---
+2224:    vq_build_lut(m, lut, cb_base, x, N, m->stages, m->cb_entries,
+2837:                vq_build_lut(m, lut_gate, h0->codebook_id + 0 * m->stages,
+2840:                vq_build_lut(m, lut_up, h0->codebook_id + 1 * m->stages,
+2885:            vq_build_lut(m, lut_gate, h->codebook_id + 0 * m->stages,
+2888:            vq_build_lut(m, lut_up, h0->codebook_id + 1 * m->stages,
+3613:                vq_build_lut(m, lut_gu + (size_t)(2 * t) * lut_sz,
+3619:                vq_build_lut(m, lut_gu + (size_t)(2 * t + 1) * lut_sz,
+--- hoist flags ---
+2821:        int lut_done = 0, ok = 1;
+2835:            if (!lut_done) {
+2843:                lut_done = 1;
+2869:    int lut_ready = 0;
+2884:        if (!lut_ready) {
+2891:            lut_ready = 1;
+3581:    int lut_ready = 0;
+3611:        if (!lut_ready) {
+3626:            lut_ready = 1;
+--- other files quant site counts ---
+[vq.c] 0
+[simd_avx512.c] 0
+[waste.c] 0
