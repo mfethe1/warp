@@ -1,0 +1,75 @@
+{
+  "stage1": {
+    "class": "RECOMPUTATION (published colibri numbers, not our measurement)",
+    "pre_fix": {
+      "attn_s": 33.6,
+      "expert_mm_s": 50.5,
+      "disk_wait_s": 83.4,
+      "wall_s": 182.0,
+      "residual_s": 14.5,
+      "expert_share": 27.75,
+      "attn_share": 18.46
+    },
+    "post_1178_merged": {
+      "attn_delta_pct": -14.4,
+      "attn_s": 28.78,
+      "wall_s": 177.18,
+      "expert_share": 28.5,
+      "attn_share": 16.24
+    },
+    "post_1178_stub_ceiling": {
+      "attn_delta_pct": -27.6,
+      "attn_s": 24.32,
+      "wall_s": 172.72,
+      "expert_share": 29.24
+    },
+    "note": "spec quoted -27.6% (172.7->125) which is the PR's gather-stub TIMING upper bound; the merged AVX2 SIMD measurement is -14.4% (172.8->148.0)."
+  },
+  "stage2": {
+    "class": "SYNTHETIC microbench (lutbw kern_A, M4, pinned harness, N=5)",
+    "kern_A_ms": [
+      47.854,
+      50.596,
+      48.511,
+      47.469,
+      50.133
+    ],
+    "kern_A_per_core_GiB_s": [
+      5.1,
+      4.9,
+      5.1,
+      5.2,
+      4.9
+    ],
+    "mean_per_core": 5.04,
+    "sd_per_core": 0.134,
+    "aggregate_T4_GiB_s": [
+      20.4,
+      19.6,
+      20.4,
+      20.8,
+      19.6
+    ],
+    "mean_aggregate_T4": 20.16,
+    "B_eff_target_GiB_s": 7.017,
+    "t_cpu_over_t_io": [
+      2.907,
+      2.793,
+      2.907,
+      2.964,
+      2.793
+    ],
+    "mean_t_cpu_over_t_io": 2.873
+  },
+  "gates": {
+    "accept": "expert share >=25% pre-fix OR post-fix share >=40% OR M4 t_cpu/t_io >= 1.0",
+    "reject": "post-fix expert share <15% OR (pre-fix share <15% AND M4 t_cpu/t_io < 0.5)",
+    "eval": {
+      "pre_share_27_74_ge_25": true,
+      "post_share_29_58_ge_40": false,
+      "m4_ratio_2_86_ge_1": true,
+      "reject_post_lt_15": false,
+      "reject_pre_lt_15_and_ratio_lt_0_5": false
+    }
+  }
+}

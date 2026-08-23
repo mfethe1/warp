@@ -1,0 +1,5 @@
+indici    252.0 MB   A   47.854 ms   D   10.119 ms   speedup  4.73x   (A   5.1 GB/s, D  24.3 GB/s)
+indici    252.0 MB   A   50.596 ms   D   10.461 ms   speedup  4.84x   (A   4.9 GB/s, D  23.5 GB/s)
+indici    252.0 MB   A   48.511 ms   D    9.858 ms   speedup  4.92x   (A   5.1 GB/s, D  25.0 GB/s)
+indici    252.0 MB   A   47.469 ms   D    9.927 ms   speedup  4.78x   (A   5.2 GB/s, D  24.8 GB/s)
+indici    252.0 MB   A   50.133 ms   D   10.394 ms   speedup  4.82x   (A   4.9 GB/s, D  23.7 GB/s)
