@@ -1,0 +1,47 @@
+{
+  "experiment": "exp46",
+  "stage": 0,
+  "label": "RECOMPUTATION",
+  "purpose": "feasibility of non-uniform stage allocation under UNMODIFIED pinned vq.c",
+  "source_sha": "7f1fbba3cbaee0e9fdaffd940d87ff2dba9ee09b",
+  "vq_c_sha256": "eb797e7c9c227f3fd29a6542ec0d557d646b5377e65297c835eb16151c360251",
+  "shim": "/tmp/exp34/libexp34.dylib (exp34 build, vq.c+threads.h byte-identical to pinned SHA)",
+  "N_vectors": 32768,
+  "dim": 8,
+  "seed": 46,
+  "structural_facts": [
+    "waste_vq_encode stores (uint8_t)vq_step(...) -> ids >255 truncated at store",
+    "waste_vq_lloyd stores assignments in uint8_t asg[n] -> ids >255 wrap, corrupting centroids",
+    "single `entries` int for all stages -> per-stage sizes not expressible in one call",
+    "record format: 3 index bytes/vector, per-stage byte-aligned -> only (8,8,8) is byte-aligned at 24 bits"
+  ],
+  "results": {
+    "entries_256": {
+      "lloyd_live_clusters": 256,
+      "vqc_code_max": 255,
+      "vqc_rel_err": 0.5790953636169434,
+      "numpy_exact_rel_err": 0.5790953636169434,
+      "numpy_exact_id_max": 255,
+      "id_agreement_pct": 100.0,
+      "truncated": false
+    },
+    "entries_512": {
+      "lloyd_live_clusters": 256,
+      "vqc_code_max": 255,
+      "vqc_rel_err": 0.7159884572029114,
+      "numpy_exact_rel_err": 0.5596099495887756,
+      "numpy_exact_id_max": 511,
+      "id_agreement_pct": 55.5328369140625,
+      "truncated": true
+    },
+    "entries_1024": {
+      "lloyd_live_clusters": 256,
+      "vqc_code_max": 255,
+      "vqc_rel_err": 0.8720328211784363,
+      "numpy_exact_rel_err": 0.5125564336776733,
+      "numpy_exact_id_max": 1023,
+      "id_agreement_pct": 17.8375244140625,
+      "truncated": true
+    }
+  }
+}
