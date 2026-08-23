@@ -1,0 +1,33 @@
+{
+ "note": "POST-HOC DIAGNOSTIC ONLY - gates evaluated at frozen s*=0.8 per spec",
+ "rows": [
+  {
+   "s": 0.2,
+   "pf": 0.5,
+   "B_A": 0.8976,
+   "B_AB": 0.8706,
+   "interaction_pp": 2.099
+  },
+  {
+   "s": 0.3,
+   "pf": 0.5,
+   "B_A": 0.8058,
+   "B_AB": 0.7752,
+   "interaction_pp": 2.433
+  },
+  {
+   "s": 0.5,
+   "pf": 0.5,
+   "B_A": 0.6021,
+   "B_AB": 0.5765,
+   "interaction_pp": 1.976
+  },
+  {
+   "s": 0.8,
+   "pf": 0.5,
+   "B_A": 0.2593,
+   "B_AB": 0.2552,
+   "interaction_pp": -0.02
+  }
+ ]
+}

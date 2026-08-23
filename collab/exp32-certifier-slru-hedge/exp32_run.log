@@ -1,0 +1,37 @@
+baseline LRU: B_replay=1.0776 GiB/tok  hit=0.5516  misses=27979
+armA s=0.05: B_replay=1.0365 B_frozen=1.0240 eps_B=+1.222% s_eff=0.050 hit=0.5461
+armA s=0.10: B_replay=0.9895 B_frozen=0.9701 eps_B=+1.999% s_eff=0.100 hit=0.5426
+armA s=0.20: B_replay=0.8976 B_frozen=0.8627 eps_B=+4.042% s_eff=0.199 hit=0.5336
+armA s=0.30: B_replay=0.8058 B_frozen=0.7540 eps_B=+6.870% s_eff=0.300 hit=0.5207
+armA s=0.40: B_replay=0.7076 B_frozen=0.6470 eps_B=+9.375% s_eff=0.399 hit=0.5101
+armA s=0.50: B_replay=0.6021 B_frozen=0.5395 eps_B=+11.607% s_eff=0.499 hit=0.5000
+armA s=0.65: B_replay=0.4355 B_frozen=0.3781 eps_B=+15.198% s_eff=0.649 hit=0.4838
+armA s=0.80: B_replay=0.2593 B_frozen=0.2152 eps_B=+20.515% s_eff=0.799 hit=0.4636
+
+STOP RULE: max eps_B(A) over sweep = +20.515%  ->  continue: full factorial
+matched frozen threshold s* = 0.8 (maximises arm A gain, frozen for B and A+B)
+armB pf=0.5: B_replay=1.0733 hit=0.5534
+armB pf=0.7: B_replay=1.1146 hit=0.5362
+armB pf=0.9: B_replay=2.4034 hit=0.0000
+
+A+B @s*=0.8, pf*=0.5: B=0.2552 (sd 0.0019)
+gain(A)=0.8183 gain(B)=0.0043 gain(A+B)=0.8224 GiB/tok
+interaction=-0.00022 GiB/tok = -0.020 pp of B_baseline
+
+GATES: accept_all=False  detail={
+ "accept": {
+  "a_eps_B_ge_0.5pct": true,
+  "b_interaction_ge_0.8pp": false,
+  "c_gainAB_ge_2.13pct": true,
+  "d_survives_frozen_threshold": true
+ },
+ "reject": {
+  "eps_B_A_lt_0.5pct": false,
+  "interaction_lt_0.8pp": true,
+  "gainAB_lt_2.13pct": false,
+  "parent_dominates": true,
+  "only_retuned": false
+ }
+}
+
+WROTE /Users/mfethe/.hermes/state/warp-research/evidence/exp32-certifier-slru-hedge/exp32_result.json
