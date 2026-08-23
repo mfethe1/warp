@@ -1,0 +1,18 @@
+### M_ROWS=3072 ###
+indici      3.9 MB   A    1.883 ms   D    0.273 ms   speedup  6.90x   (A   2.0 GB/s, D  14.1 GB/s)
+indici      3.9 MB   A    0.907 ms   D    0.283 ms   speedup  3.20x   (A   4.2 GB/s, D  13.6 GB/s)
+indici      3.9 MB   A    0.944 ms   D    0.232 ms   speedup  4.07x   (A   4.1 GB/s, D  16.6 GB/s)
+indici      3.9 MB   A    0.873 ms   D    0.202 ms   speedup  4.32x   (A   4.4 GB/s, D  19.0 GB/s)
+indici      3.9 MB   A    0.790 ms   D    0.185 ms   speedup  4.27x   (A   4.9 GB/s, D  20.8 GB/s)
+### M_ROWS=9216 ###
+indici     11.8 MB   A    2.551 ms   D    0.647 ms   speedup  3.94x   (A   4.5 GB/s, D  17.8 GB/s)
+indici     11.8 MB   A    2.209 ms   D    0.515 ms   speedup  4.29x   (A   5.2 GB/s, D  22.4 GB/s)
+indici     11.8 MB   A    1.995 ms   D    0.469 ms   speedup  4.25x   (A   5.8 GB/s, D  24.6 GB/s)
+indici     11.8 MB   A    1.999 ms   D    0.460 ms   speedup  4.35x   (A   5.8 GB/s, D  25.1 GB/s)
+indici     11.8 MB   A    2.014 ms   D    0.470 ms   speedup  4.29x   (A   5.7 GB/s, D  24.5 GB/s)
+### M_ROWS=196608 ###
+indici    252.0 MB   A   49.596 ms   D   11.091 ms   speedup  4.47x   (A   5.0 GB/s, D  22.2 GB/s)
+indici    252.0 MB   A   49.190 ms   D   13.533 ms   speedup  3.63x   (A   5.0 GB/s, D  18.2 GB/s)
+indici    252.0 MB   A   48.028 ms   D    9.938 ms   speedup  4.83x   (A   5.1 GB/s, D  24.8 GB/s)
+indici    252.0 MB   A   47.357 ms   D   10.095 ms   speedup  4.69x   (A   5.2 GB/s, D  24.4 GB/s)
+indici    252.0 MB   A   48.831 ms   D   10.249 ms   speedup  4.76x   (A   5.0 GB/s, D  24.0 GB/s)

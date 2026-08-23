@@ -1,0 +1,42 @@
+M_ROWS=3072 idx_bytes=4128768 (0.003845 GiB)
+  VQ3R kern_A: mean 3.925 GiB/s/core  sd 0.978  N=5  [2.042,4.867]
+  VQ4P kern_D: mean 16.813 GiB/s/core  sd 2.779  N=5
+    cores_required @5.919 GiB/s (single-SSD) = 1.508
+    cores_required @11.838 GiB/s (dual-SSD) = 3.016
+
+M_ROWS=9216 idx_bytes=12386304 (0.011536 GiB)
+  VQ3R kern_A: mean 5.405 GiB/s/core  sd 0.489  N=5  [4.522,5.782]
+  VQ4P kern_D: mean 22.889 GiB/s/core  sd 2.694  N=5
+    cores_required @5.919 GiB/s (single-SSD) = 1.095
+    cores_required @11.838 GiB/s (dual-SSD) = 2.190
+
+M_ROWS=196608 idx_bytes=264241152 (0.246094 GiB)
+  VQ3R kern_A: mean 5.065 GiB/s/core  sd 0.085  N=5  [4.962,5.197]
+  VQ4P kern_D: mean 22.705 GiB/s/core  sd 2.427  N=5
+    cores_required @5.919 GiB/s (single-SSD) = 1.169
+    cores_required @11.838 GiB/s (dual-SSD) = 2.337
+
+=== DECISIVE CONFIG: M_ROWS=196608, 252 MB index stream (DRAM-resident, out of cache) ===
+VQ3R gather rate = 5.065 GiB/s/core (sd 0.085, N=5)
+ACCEPT gate (rate >= 2.0 GiB/s/core): PASS
+REJECT gate (rate <  0.75 GiB/s/core): not triggered
+
+Per-token physical demand 7.719 GiB
+  disk time @5.919 GiB/s = 1304.1 ms (established 1304.1 ms)
+  single-core gather time = 1524.0 ms
+
+  cores= 1 1xSSD: io= 1304.1  compute= 1524.0  ->  t= 1524.0 ms  bound=COMPUTE
+  cores= 1 2xSSD: io=  652.1  compute= 1524.0  ->  t= 1524.0 ms  bound=COMPUTE
+  cores= 2 1xSSD: io= 1304.1  compute=  762.0  ->  t= 1304.1 ms  bound=I/O
+  cores= 2 2xSSD: io=  652.1  compute=  762.0  ->  t=  762.0 ms  bound=COMPUTE
+  cores= 3 1xSSD: io= 1304.1  compute=  508.0  ->  t= 1304.1 ms  bound=I/O
+  cores= 3 2xSSD: io=  652.1  compute=  508.0  ->  t=  652.1 ms  bound=I/O
+  cores= 4 1xSSD: io= 1304.1  compute=  381.0  ->  t= 1304.1 ms  bound=I/O
+  cores= 4 2xSSD: io=  652.1  compute=  381.0  ->  t=  652.1 ms  bound=I/O
+  cores=10 1xSSD: io= 1304.1  compute=  152.4  ->  t= 1304.1 ms  bound=I/O
+  cores=10 2xSSD: io=  652.1  compute=  152.4  ->  t=  652.1 ms  bound=I/O
+
+c (avail=4 cores) = 0.2922 -> exp17 dual-SSD achieved 842.5 ms = 1.548x (vs claimed 2.000x)
+c (avail=10 cores) = 0.1169 -> exp17 dual-SSD achieved 728.2 ms = 1.791x (vs claimed 2.000x)
+
+wrote exp20_result.json
