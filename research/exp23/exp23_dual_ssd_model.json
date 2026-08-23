@@ -1,0 +1,376 @@
+{
+  "labels": "ALL FIGURES RECOMPUTATION or PROJECTION -- NO K3 MEASUREMENT",
+  "derate": 0.8531277025079274,
+  "established": {
+    "physical_gib_per_token": 7.719,
+    "bw_measured_gibs": 5.919,
+    "expert_record_bytes": 12406784
+  },
+  "ladder": [
+    {
+      "bw": 5.919,
+      "req_gib": 0.39459999999999995,
+      "gap": 19.56158134820071,
+      "ms": 1304.1054232133808,
+      "toks": 0.7668091721725612
+    },
+    {
+      "bw": 9.0,
+      "req_gib": 0.6,
+      "gap": 12.865,
+      "ms": 857.6666666666667,
+      "toks": 1.165954139137194
+    },
+    {
+      "bw": 12.0,
+      "req_gib": 0.8,
+      "gap": 9.64875,
+      "ms": 643.25,
+      "toks": 1.5546055188495917
+    },
+    {
+      "bw": 18.0,
+      "req_gib": 1.2,
+      "gap": 6.4325,
+      "ms": 428.83333333333337,
+      "toks": 2.331908278274388
+    }
+  ],
+  "imbalance": [
+    {
+      "devices": 2,
+      "ideal": 8.0,
+      "shard_emax": 9.571044921875,
+      "shard_tax": 1.196380615234375,
+      "dup_makespan": 8,
+      "dup_tax": 1.0
+    },
+    {
+      "devices": 3,
+      "ideal": 5.333333333333333,
+      "shard_emax": 7.333373057613378,
+      "shard_tax": 1.3750074483025085,
+      "dup_makespan": 6,
+      "dup_tax": 1.125
+    },
+    {
+      "devices": 4,
+      "ideal": 4.0,
+      "shard_emax": 6.139014482498169,
+      "shard_tax": 1.5347536206245422,
+      "dup_makespan": 4,
+      "dup_tax": 1.0
+    }
+  ],
+  "amplification": {
+    "read_duplicate_pct": 0.0,
+    "read_shard_pct": 0.0,
+    "store_pct": {
+      "2": 100.0,
+      "3": 200.0,
+      "4": 300.0
+    },
+    "page_round_waste_pct": 0.0
+  },
+  "platform_note": "chipset M.2 share one Gen4 x4 uplink; x16 GPU link is unused under CPU-only streaming and bifurcates to 4x x4",
+  "configs": [
+    {
+      "name": "1x 990 Pro (BASELINE, measured)",
+      "n": 1,
+      "mode": "duplicate",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 5.919301308397259,
+      "tax": 1.0,
+      "usd": 150.0,
+      "gain_vs_measured": 5.090528759232882e-05,
+      "gap": 19.56058561096471,
+      "ms": 1304.0390407309808,
+      "capacity_fits": true,
+      "total_rig": 2160.0,
+      "note": ""
+    },
+    {
+      "name": "2x 990 Pro duplicate",
+      "n": 2,
+      "mode": "duplicate",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 11.838602616794518,
+      "tax": 1.0,
+      "usd": 300.0,
+      "gain_vs_measured": 1.0001018105751847,
+      "gap": 9.780292805482356,
+      "ms": 652.0195203654904,
+      "capacity_fits": true,
+      "total_rig": 2310.0,
+      "note": ""
+    },
+    {
+      "name": "2x 990 Pro sharded (uniform hash)",
+      "n": 2,
+      "mode": "shard_uniform",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 9.895348074053587,
+      "tax": 1.196380615234375,
+      "usd": 300.0,
+      "gain_vs_measured": 0.6717938966132095,
+      "gap": 11.700952723795313,
+      "ms": 780.0635149196873,
+      "capacity_fits": true,
+      "total_rig": 2310.0,
+      "note": ""
+    },
+    {
+      "name": "3x 990 Pro duplicate",
+      "n": 3,
+      "mode": "duplicate",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 15.784803489059357,
+      "tax": 1.125,
+      "usd": 520.0,
+      "gain_vs_measured": 1.6668024141002462,
+      "gap": 7.335219604111766,
+      "ms": 489.01464027411777,
+      "capacity_fits": true,
+      "total_rig": 2530.0,
+      "note": ""
+    },
+    {
+      "name": "3x 990 Pro sharded",
+      "n": 3,
+      "mode": "shard_uniform",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 12.914769259697092,
+      "tax": 1.3750074483025085,
+      "usd": 520.0,
+      "gain_vs_measured": 1.1819174285685237,
+      "gap": 8.965316969411784,
+      "ms": 597.6877979607856,
+      "capacity_fits": true,
+      "total_rig": 2530.0,
+      "note": ""
+    },
+    {
+      "name": "4x 990 Pro duplicate (bifurc)",
+      "n": 4,
+      "mode": "duplicate",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 23.677205233589035,
+      "tax": 1.0,
+      "usd": 670.0,
+      "gain_vs_measured": 3.0002036211503693,
+      "gap": 4.890146402741178,
+      "ms": 326.0097601827452,
+      "capacity_fits": true,
+      "total_rig": 2680.0,
+      "note": ""
+    },
+    {
+      "name": "4x 990 Pro sharded (bifurc)",
+      "n": 4,
+      "mode": "shard_uniform",
+      "per_dev_gibs": 5.919301308397259,
+      "agg_gibs": 15.427365614523843,
+      "tax": 1.5347536206245422,
+      "usd": 670.0,
+      "gain_vs_measured": 1.606414194040183,
+      "gap": 7.505169896991104,
+      "ms": 500.3446597994069,
+      "capacity_fits": true,
+      "total_rig": 2680.0,
+      "note": ""
+    },
+    {
+      "name": "2x 9100 Pro Gen5 duplicate",
+      "n": 2,
+      "mode": "duplicate",
+      "per_dev_gibs": 11.75914890795697,
+      "agg_gibs": 23.51829781591394,
+      "tax": 1.0,
+      "usd": 460.0,
+      "gain_vs_measured": 2.9733566169815746,
+      "gap": 4.923187932489429,
+      "ms": 328.21252883262866,
+      "capacity_fits": true,
+      "total_rig": 2470.0,
+      "note": ""
+    },
+    {
+      "name": "4x 9100 Pro Gen5 duplicate",
+      "n": 4,
+      "mode": "duplicate",
+      "per_dev_gibs": 11.75914890795697,
+      "agg_gibs": 47.03659563182788,
+      "tax": 1.0,
+      "usd": 990.0,
+      "gain_vs_measured": 6.946713233963149,
+      "gap": 2.4615939662447146,
+      "ms": 164.10626441631433,
+      "capacity_fits": true,
+      "total_rig": 3000.0,
+      "note": ""
+    },
+    {
+      "name": "4x 9100 Pro Gen5 sharded",
+      "n": 4,
+      "mode": "shard_uniform",
+      "per_dev_gibs": 11.75914890795697,
+      "agg_gibs": 30.647652495966828,
+      "tax": 1.5347536206245422,
+      "usd": 990.0,
+      "gain_vs_measured": 4.1778429626570075,
+      "gap": 3.7779402522016032,
+      "ms": 251.86268348010688,
+      "capacity_fits": true,
+      "total_rig": 3000.0,
+      "note": ""
+    }
+  ],
+  "economics": [
+    {
+      "name": "2x 990 Pro duplicate",
+      "d_usd": 150.0,
+      "d_bw": 5.919301308397259,
+      "usd_per_gibs": 25.34082861894638,
+      "gap_closed": 9.780292805482356,
+      "usd_per_gapx": 15.33696413627998
+    },
+    {
+      "name": "2x 990 Pro sharded (uniform hash)",
+      "d_usd": 150.0,
+      "d_bw": 3.976046765656328,
+      "usd_per_gibs": 37.725914417216224,
+      "gap_closed": 7.859632887169399,
+      "usd_per_gapx": 19.084860852072396
+    },
+    {
+      "name": "3x 990 Pro duplicate",
+      "d_usd": 370.0,
+      "d_bw": 9.865502180662098,
+      "usd_per_gibs": 37.50442635604064,
+      "gap_closed": 12.225366006852944,
+      "usd_per_gapx": 30.26494256225916
+    },
+    {
+      "name": "3x 990 Pro sharded",
+      "d_usd": 370.0,
+      "d_bw": 6.995467951299833,
+      "usd_per_gibs": 52.89138661999731,
+      "gap_closed": 10.595268641552927,
+      "usd_per_gapx": 34.921247635847564
+    },
+    {
+      "name": "4x 990 Pro duplicate (bifurc)",
+      "d_usd": 520.0,
+      "d_bw": 17.757903925191776,
+      "usd_per_gibs": 29.282735293004706,
+      "gap_closed": 14.670439208223534,
+      "usd_per_gapx": 35.44542822606928
+    },
+    {
+      "name": "4x 990 Pro sharded (bifurc)",
+      "d_usd": 520.0,
+      "d_bw": 9.508064306126585,
+      "usd_per_gibs": 54.690416814380875,
+      "gap_closed": 12.055415713973607,
+      "usd_per_gapx": 43.134140898787955
+    },
+    {
+      "name": "2x 9100 Pro Gen5 duplicate",
+      "d_usd": 310.0,
+      "d_bw": 17.59899650751668,
+      "usd_per_gibs": 17.614640690882368,
+      "gap_closed": 14.637397678475281,
+      "usd_per_gapx": 21.178627978104608
+    },
+    {
+      "name": "4x 9100 Pro Gen5 duplicate",
+      "d_usd": 840.0,
+      "d_bw": 41.11729432343062,
+      "usd_per_gibs": 20.42935980642402,
+      "gap_closed": 17.098991644719998,
+      "usd_per_gapx": 49.12570386917429
+    },
+    {
+      "name": "4x 9100 Pro Gen5 sharded",
+      "d_usd": 840.0,
+      "d_bw": 24.72835118756957,
+      "usd_per_gibs": 33.96910669977263,
+      "gap_closed": 15.782645358763109,
+      "usd_per_gapx": 53.22301685842551
+    }
+  ],
+  "gates": [
+    {
+      "name": "2x 990 Pro duplicate",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "2x 990 Pro sharded (uniform hash)",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "3x 990 Pro duplicate",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "3x 990 Pro sharded",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "4x 990 Pro duplicate (bifurc)",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "4x 990 Pro sharded (bifurc)",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "2x 9100 Pro Gen5 duplicate",
+      "bw20": true,
+      "amp": true,
+      "budget": true,
+      "capacity": true,
+      "ACCEPT": true
+    },
+    {
+      "name": "4x 9100 Pro Gen5 duplicate",
+      "bw20": true,
+      "amp": true,
+      "budget": false,
+      "capacity": true,
+      "ACCEPT": false
+    },
+    {
+      "name": "4x 9100 Pro Gen5 sharded",
+      "bw20": true,
+      "amp": true,
+      "budget": false,
+      "capacity": true,
+      "ACCEPT": false
+    }
+  ]
+}
