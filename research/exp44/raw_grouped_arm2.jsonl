@@ -1,0 +1,10 @@
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 1, "misses": 10261, "wall_ms": 15.4034}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 2, "misses": 10261, "wall_ms": 15.4187}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 3, "misses": 10261, "wall_ms": 16.2017}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 4, "misses": 10261, "wall_ms": 15.1845}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 5, "misses": 10261, "wall_ms": 14.8452}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 6, "misses": 10261, "wall_ms": 15.0523}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 7, "misses": 10261, "wall_ms": 15.0706}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 8, "misses": 10261, "wall_ms": 15.0851}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 9, "misses": 10261, "wall_ms": 15.1239}
+{"protocol": "grouped_arm2", "arm": "belady", "rep": 10, "misses": 10261, "wall_ms": 15.661}

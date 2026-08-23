@@ -1,0 +1,10 @@
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 1, "misses": 18786, "wall_ms": 4.3482}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 2, "misses": 18786, "wall_ms": 4.1248}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 3, "misses": 18786, "wall_ms": 3.8588}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 4, "misses": 18786, "wall_ms": 3.8896}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 5, "misses": 18786, "wall_ms": 3.926}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 6, "misses": 18786, "wall_ms": 3.951}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 7, "misses": 18786, "wall_ms": 3.9655}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 8, "misses": 18786, "wall_ms": 3.9781}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 9, "misses": 18786, "wall_ms": 3.9783}
+{"protocol": "grouped_arm1", "arm": "lru", "rep": 10, "misses": 18786, "wall_ms": 4.0409}
