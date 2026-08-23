@@ -1,0 +1,5 @@
+M_ROWS=196608  per-thread stream=252.00 MB  T=4
+allocated 4 independent stream pairs (1.97 GB)
+  arm D     mean   65.439 GiB/s  sd  0.546
+  arm CPY   mean   46.482 GiB/s  sd  0.373
+  arm RDSUM mean   68.159 GiB/s  sd  0.215

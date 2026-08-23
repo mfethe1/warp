@@ -1,0 +1,1 @@
+PINNED_SHA=7f1fbba3cbaee0e9fdaffd940d87ff2dba9ee09b (exp35 pin; kern_D byte-identical to lutmt2.c sha256 768e690d5246dd0ec903d7c56e91b5f552a506dbb399560d4654d8b9bcbcbdae)

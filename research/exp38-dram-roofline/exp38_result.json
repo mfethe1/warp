@@ -1,0 +1,144 @@
+{
+  "exp": 38,
+  "slug": "dram-roofline-on-logical-demand",
+  "source_sha": "exp35-pinned-lutbw (WARP 7f1fbba3cbaee0e9fdaffd940d87ff2dba9ee09b)",
+  "host": "Apple M4, 4 P-core + 6 E-core, 24 GiB, macOS 15.6",
+  "stage1_class": "SYNTHETIC",
+  "stage2_4_class": "RECOMPUTATION",
+  "stage1": {
+    "T": 4,
+    "N_per_arm": 5,
+    "per_thread_stream_MB": 252.0,
+    "qos": "USER_INTERACTIVE (P-core preference)",
+    "arms_source_read_GiB_s": {
+      "D": 65.4393,
+      "CPY": 46.4821,
+      "RDSUM": 68.1592
+    },
+    "arms_sd": {
+      "D": 0.5458,
+      "CPY": 0.373,
+      "RDSUM": 0.2149
+    }
+  },
+  "gate_adjudication": {
+    "preregistered_accept": "kern_D within 10% of the memcpy control AND recomputed M4 ceiling <= 6.6 tok/s",
+    "preregistered_reject": "kern_D exceeds the memcpy control by >10%, OR a <=$3000 platform delivers >=315.0 GiB/s achievable",
+    "literal_D_over_CPY_read_rate": 1.4078,
+    "literal_gate_verdict": "REJECT fires literally (+40.8%)",
+    "why_literal_control_is_invalid": "memcpy moves 2 bytes of DRAM traffic per byte of SOURCE read (1 read + 1 write); kern_D moves 1.003. Comparing D's read rate to memcpy's read rate compares different physical quantities, so the literal gate cannot test its own stated mechanism ('LUT reuse defeats the roofline denominator L').",
+    "dimensionally_matched_read_only_control_RDSUM": 68.1592,
+    "D_over_RDSUM": 0.9601,
+    "read_control_verdict": "ACCEPT condition 1 holds: D is 96.0% of the read-only roof (within 10%)",
+    "total_DRAM_traffic_normalization": {
+      "D_total_GiB_s": 65.634,
+      "CPY_total_GiB_s": 92.964,
+      "D_over_CPY_total": 0.706,
+      "verdict": "D is 29.4% BELOW memcpy total traffic -- neither accept nor reject as written"
+    },
+    "reject_clause_2_any_platform_>=315_GiB_s_achievable": "NOT DEMONSTRATED (no such measurement exists)"
+  },
+  "stage2_ceilings": {
+    "L_logical_GiB_per_token": 17.0085,
+    "required_achievable_GiB_s_for_15_tok_s": 255.128,
+    "m4_measured_ceiling_tok_s": 3.8474,
+    "m4_absolute_nameplate_roof_tok_s": 6.5708,
+    "m4_accept_condition2_ceiling_le_6.6": true,
+    "m4_L_reduction_factor_required": 3.899,
+    "m4_max_remaining_kernel_headroom_x": 1.0416,
+    "r_measured_T4": 0.5855,
+    "r_exp35_bestT": 0.8112
+  },
+  "stage3_platform_table": [
+    {
+      "platform": "M4 24GB (this Mac)",
+      "nameplate_GB_s": 120.0,
+      "nameplate_GiB_s": 111.759,
+      "dram_capacity_GiB": 24,
+      "measured_here": true,
+      "flag": "MEASURED this run",
+      "ceiling_at_r_measured_0.5855": 3.847,
+      "ceiling_at_r_exp35_0.8112": 5.33,
+      "ceiling_at_r_1.0_absolute_roof": 6.571,
+      "L_reduction_factor_required_at_r_measured": 3.899,
+      "capacity_holds_952GiB_VQ3R": false,
+      "binding_resource": "SSD/PCIe, not DRAM -- DRAM roof is NOT the binding constraint"
+    },
+    {
+      "platform": "DDR5-5600 dual-channel desktop",
+      "nameplate_GB_s": 89.6,
+      "nameplate_GiB_s": 83.447,
+      "dram_capacity_GiB": 192,
+      "measured_here": false,
+      "flag": "NAMEPLATE-UNVERIFIED",
+      "ceiling_at_r_measured_0.5855": 2.873,
+      "ceiling_at_r_exp35_0.8112": 3.98,
+      "ceiling_at_r_1.0_absolute_roof": 4.906,
+      "L_reduction_factor_required_at_r_measured": 5.221,
+      "capacity_holds_952GiB_VQ3R": false,
+      "binding_resource": "SSD/PCIe, not DRAM -- DRAM roof is NOT the binding constraint"
+    },
+    {
+      "platform": "8-channel DDR4-3200 server",
+      "nameplate_GB_s": 204.8,
+      "nameplate_GiB_s": 190.735,
+      "dram_capacity_GiB": 512,
+      "measured_here": false,
+      "flag": "NAMEPLATE-UNVERIFIED",
+      "ceiling_at_r_measured_0.5855": 6.566,
+      "ceiling_at_r_exp35_0.8112": 9.097,
+      "ceiling_at_r_1.0_absolute_roof": 11.214,
+      "L_reduction_factor_required_at_r_measured": 2.284,
+      "capacity_holds_952GiB_VQ3R": false,
+      "binding_resource": "SSD/PCIe, not DRAM -- DRAM roof is NOT the binding constraint"
+    },
+    {
+      "platform": "12-channel DDR5-4800 server",
+      "nameplate_GB_s": 460.8,
+      "nameplate_GiB_s": 429.153,
+      "dram_capacity_GiB": 768,
+      "measured_here": false,
+      "flag": "NAMEPLATE-UNVERIFIED; >$3000",
+      "ceiling_at_r_measured_0.5855": 14.774,
+      "ceiling_at_r_exp35_0.8112": 20.468,
+      "ceiling_at_r_1.0_absolute_roof": 25.232,
+      "L_reduction_factor_required_at_r_measured": 1.015,
+      "capacity_holds_952GiB_VQ3R": false,
+      "binding_resource": "SSD/PCIe, not DRAM -- DRAM roof is NOT the binding constraint"
+    },
+    {
+      "platform": "RTX 5060 Ti 16GB VRAM",
+      "nameplate_GB_s": 448.0,
+      "nameplate_GiB_s": 417.233,
+      "dram_capacity_GiB": 16,
+      "measured_here": false,
+      "flag": "NAMEPLATE-UNVERIFIED",
+      "ceiling_at_r_measured_0.5855": 14.364,
+      "ceiling_at_r_exp35_0.8112": 19.899,
+      "ceiling_at_r_1.0_absolute_roof": 24.531,
+      "L_reduction_factor_required_at_r_measured": 1.044,
+      "capacity_holds_952GiB_VQ3R": false,
+      "binding_resource": "SSD/PCIe, not DRAM -- DRAM roof is NOT the binding constraint"
+    },
+    {
+      "platform": "used M1 Ultra 128GB",
+      "nameplate_GB_s": 800.0,
+      "nameplate_GiB_s": 745.058,
+      "dram_capacity_GiB": 128,
+      "measured_here": false,
+      "flag": "NAMEPLATE-UNVERIFIED",
+      "ceiling_at_r_measured_0.5855": 25.65,
+      "ceiling_at_r_exp35_0.8112": 35.535,
+      "ceiling_at_r_1.0_absolute_roof": 43.805,
+      "L_reduction_factor_required_at_r_measured": 0.585,
+      "capacity_holds_952GiB_VQ3R": false,
+      "binding_resource": "SSD/PCIe, not DRAM -- DRAM roof is NOT the binding constraint"
+    }
+  ],
+  "stage4_retro_gate": {
+    "rule": "every iso-rate kernel/codec idea is capped at B_achievable / L on its own platform",
+    "m4_cap_tok_s": 3.8474,
+    "consequence": "no iso-rate substitution (VQ4P, rANS, any gather kernel) can exceed 3.847 tok/s on M4; the only remaining levers are (a) reduce L, (b) buy bandwidth WITH capacity >= working set.",
+    "capacity_corollary": "every platform in the table with >=315 GiB/s nameplate has DRAM capacity far below the 952 GiB VQ3R working set, so its DRAM roof is not reachable -- the binding resource reverts to SSD/PCIe. Bandwidth-per-dollar must be scored jointly with capacity-per-dollar."
+  }
+}
