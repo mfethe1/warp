@@ -1,0 +1,40 @@
+# inputs: trace sha256=06ad026c928d1c05eb59f0b1db55e1317c1899b1d3a687741ab5c49fdc014965 N=300 L=26 top-8 raw=62400
+
+## exp26 recomputation [RECOMPUTATION over trace=PROXY]
+C=1  records=62400  prompt bytes=  721.014 GiB
+C=32 records=21176 prompt bytes=  244.683 GiB
+saved=476.332 GiB = 66.06% (exp26 published 66.06%)
+
+## (1) TTFT saving per 300-tok prefill, dup-4x, at exp30's published B_eff points
+#    [SYNTHETIC bandwidth model (exp30) x PROXY byte counts (trace); NOT REAL-K3]
+#    NOTE: B_eff(miss) is a DECODE barrier model; prefill concurrency is high,
+#    so the ladder brackets the saving; the prefill-correct row is given last.
+  B_eff= 19.634 GiB/s (bytes/tok 7.7190, 668.0 misses/tok): TTFT saved =   24260.6 ms  ( 24.26 s)
+  B_eff= 16.569 GiB/s (bytes/tok 3.6704, 317.7 misses/tok): TTFT saved =   28748.4 ms  ( 28.75 s)
+  B_eff= 11.542 GiB/s (bytes/tok 1.7453, 151.0 misses/tok): TTFT saved =   41269.4 ms  ( 41.27 s)
+  B_eff=  8.377 GiB/s (bytes/tok 0.8299,  71.8 misses/tok): TTFT saved =   56861.8 ms  ( 56.86 s)
+  B_eff=  7.017 GiB/s (bytes/tok 0.3946,  34.2 misses/tok): TTFT saved =   67882.5 ms  ( 67.88 s)
+  prefill-correct dup4 B_eff = 23.230 GiB/s (per-cell k: mean=81.45, E[ceil(k/4)]=20.75, ncells=260) [SYNTHETIC barrier model x PROXY cell stats]
+  -> TTFT saved = 20505.3 ms (20.51 s) [PROXY]
+
+## (2) measurement-loop multiplier (upstream 50.0s total, 48.0s load+prefill, bandwidth-bound)
+  PROXY (trace 2.947x dedup):  48s -> 16.29s, exp/hr x2.734
+  REAL-K3-anchored (colibri 2.7x @C=32): 48s -> 17.78s, exp/hr x2.528
+
+## (3) residency side-effect on decode miss rate, LRU cap=1490, key=(layer,expert)
+#    warm=prefill tokens[0,split), decode=tokens[split,300) at C=1; deterministic N=1 per arm
+  split=150: naive warm -> decode misses  9476/31200 (30.372%) | dedup warm ->  9396/31200 (30.115%) | dE[k] = -0.844%
+  split=200: naive warm -> decode misses  6351/20800 (30.534%) | dedup warm ->  6284/20800 (30.212%) | dE[k] = -1.055%
+  split=250: naive warm -> decode misses  3074/10400 (29.558%) | dedup warm ->  2997/10400 (28.817%) | dE[k] = -2.505%
+  (exp40 steady-state whole-trace reference: 18,786/62,400 = 30.106% at same cap)
+
+## (4) DECODE NON-CREDIT STATEMENT [RECOMPUTATION]
+exp26's 66.06% is a PREFILL-phase byte reduction. At batch-1 decode there is no
+chunk to dedup within: C=1 dedup factor on this trace is exactly 1.000x (phys
+2.4034 GiB/tok == raw logical demand), i.e. decode bytes/token is UNCHANGED by
+the mechanism. Therefore 66.06% is NOT credited toward the 19.562x decode gap
+(7.719 -> 0.3946 GiB/token at B_eff 5.919 GiB/s): credit toward that gap from
+exp26 = 0.00x. The objectives it does move are TTFT (deliverable 1) and lab
+measurement throughput (deliverable 2).
+
+# REJECT GATE (preregistered): residency side-effect shifts decode E[k] by >5% -> not tripped
