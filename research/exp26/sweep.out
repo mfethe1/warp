@@ -1,0 +1,22 @@
+# PROXY trace: N=300 tokens, L=26 layers, top-8 -> 62400 raw accesses
+C=  1  distinct_records= 62400  raw= 62400  dedup=1.000x  phys= 2.4034 GiB/prompt-tok  (raw= 2.4034)
+C=  8  distinct_records= 34927  raw= 62400  dedup=1.787x  phys= 1.3452 GiB/prompt-tok  (raw= 2.4034)
+C= 16  distinct_records= 28131  raw= 62400  dedup=2.218x  phys= 1.0835 GiB/prompt-tok  (raw= 2.4034)
+C= 32  distinct_records= 21176  raw= 62400  dedup=2.947x  phys= 0.8156 GiB/prompt-tok  (raw= 2.4034)
+C= 64  distinct_records= 15535  raw= 62400  dedup=4.017x  phys= 0.5983 GiB/prompt-tok  (raw= 2.4034)
+
+# AUDIT: earlier 'batching dead' claim compared LOGICAL batched
+# demand (GiB/token, counting every routed expert) against PHYSICAL
+# unbatched reads with a warm cache. Correct comparisons:
+#   raw logical demand (no dedup):  2.4034 GiB/token [PROXY trace]
+#   physical @ C=1 (dedup within token, none across): 2.4034 GiB/token
+#   physical @ C=32 (chunk dedup):                    0.8156 GiB/token
+#   reduction C=1 -> C=32: 66.06%
+#   reduction C=1 -> C=8: 44.03%  (gate: >=20%)
+#   reduction C=1 -> C=16: 54.92%  (gate: >=20%)
+#   reduction C=1 -> C=32: 66.06%  (gate: >=20%)
+#   reduction C=1 -> C=64: 75.10%  (gate: >=20%)
+
+# SHAPE CAVEAT: trace is Kimi-Linear-shaped (top-8, 256E), NOT K3
+# (92L x 896E x top-16). K3 chunk overlap must be re-measured on a
+# real K3 routing dump before any REAL-K3 number is quoted.

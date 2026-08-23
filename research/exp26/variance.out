@@ -1,0 +1,10 @@
+[PROXY] C=32 per-(chunk,layer) distinct experts: mean=81.45 sd=17.15 min=31 max=112 ncells=260
+        uniform-routing expectation for this shape (E=256,k=8,C=32): 163.3  -> measured/uniform = 0.499 (locality factor)
+[SYNTHETIC-uniform] K3 (E=896,k=16) C= 8: expected distinct  120.3 / 128 accesses -> dedup 1.064x
+[SYNTHETIC-uniform] K3 (E=896,k=16) C=16: expected distinct  224.4 / 256 accesses -> dedup 1.141x
+[SYNTHETIC-uniform] K3 (E=896,k=16) C=32: expected distinct  392.6 / 512 accesses -> dedup 1.304x
+[SYNTHETIC-uniform] K3 (E=896,k=16) C=64: expected distinct  613.2 / 1024 accesses -> dedup 1.670x
+
+If K3 locality factor matches the trace (~0.49x of uniform distinct),
+projected K3 dedup at C=32 ~ 2.61x [SYNTHETIC projection - MUST be re-measured on real K3 trace]
+Colibri measured on real K3 text at C=32: 2.7x [REAL-K3, their claim, sha 33e67a9]
