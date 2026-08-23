@@ -1,0 +1,103 @@
+{
+  "experiment": 40,
+  "source_sha": "cb05b1424eaefd5f777f62215c31d4af760e6e86",
+  "sources": {
+    "tests/trace_kimi_300.jsonl": "06ad026c928d1c05eb59f0b1db55e1317c1899b1d3a687741ab5c49fdc014965",
+    "docs/gn100/sprint11-route-margin-summary.json": "1cfd9927fce60aea5ec220405923641821537431e8e3ab599837f2300d772295"
+  },
+  "PROXY_trace": {
+    "tokens_N": 300,
+    "layers": 26,
+    "top_k": 8,
+    "accesses_N": 62400,
+    "distinct_layer_experts": 5083,
+    "cache_capacity_at_3_41x": 1490,
+    "LRU_misses_N": 18786,
+    "LRU_miss_rate": 0.3010576923076923
+  },
+  "REAL_K3_aggregate_margin_source": {
+    "layers": 92,
+    "rows_N": 6348,
+    "positions_N": 69,
+    "certifier_curve": [
+      {
+        "max_score_error": 1e-06,
+        "certified_fraction": 0.9977945809703844
+      },
+      {
+        "max_score_error": 1e-05,
+        "certified_fraction": 0.9801512287334594
+      },
+      {
+        "max_score_error": 0.0001,
+        "certified_fraction": 0.8232514177693762
+      },
+      {
+        "max_score_error": 0.001,
+        "certified_fraction": 0.24196597353497162
+      },
+      {
+        "max_score_error": 0.01,
+        "certified_fraction": 0.0048834278512916995
+      },
+      {
+        "max_score_error": 0.05,
+        "certified_fraction": 0.0
+      },
+      {
+        "max_score_error": 0.1,
+        "certified_fraction": 0.0
+      }
+    ],
+    "per_access_joint_labels_present": false
+  },
+  "RECOMPUTATION_geometry": {
+    "weights_per_expert": 33030144,
+    "vectors_per_expert": 4128768,
+    "index_payload_B": 12386304,
+    "header_plus_corrections_B": 20480,
+    "record_B": 12406784,
+    "record_pages": 3029,
+    "record_page_exact": true,
+    "one_stage_plane_B": 4128768,
+    "counterfactual_stage_boundaries_pages": [
+      1008,
+      2016,
+      3029
+    ],
+    "all_counterfactual_boundaries_page_aligned": true,
+    "shipped_layout_fact": "three stage bytes are adjacent/interleaved per vector; one whole-record pread",
+    "shipped_R_B_at_stages_1_2_3": [
+      12406784,
+      12406784,
+      12406784
+    ],
+    "shipped_SPRT_physical_byte_gain_B": 0
+  },
+  "identifiability": {
+    "required_joint_statistic": "q=P(certifier_suppressed AND SPRT_stage1)",
+    "available_REAL_K3": "aggregate certifier margin CDF only; no per-access identities",
+    "available_PROXY": "routing identities only; no margins, hidden states, row norms, or VQ stage outputs",
+    "missing": [
+      "frozen certifier tolerance or bound",
+      "frozen exact SPRT stopping inequality",
+      "per-access certifier verdicts aligned to the trace",
+      "per-access SPRT stop-stage labels aligned to the same trace",
+      "accepted-token and KL observations for the same arms"
+    ],
+    "frechet_bounds": "max(0,c+p-1) <= q <= min(c,p)",
+    "conclusion": "The >=80% overlap stop gate and all conditional marginals are not identifiable."
+  },
+  "gate_evaluation": {
+    "stop_gate_overlap_ge_80pct": "UNEVALUABLE",
+    "accept_gate": "UNEVALUABLE",
+    "reject_gate": "UNEVALUABLE",
+    "reason": "The spec omits the parameters and joint observations needed to instantiate its own arms."
+  },
+  "objective_check": {
+    "objective": "physical bytes per accepted token",
+    "algebra": "B_acc = sum(page-rounded bytes of non-suppressed physical misses) / accepted_tokens",
+    "connection": "Direct if stage planes are physically separable and verdicts are observed jointly; as shipped SPRT changes decode work only and dB_acc/d(stop_stage)=0."
+  },
+  "verdict": "inconclusive"
+}
