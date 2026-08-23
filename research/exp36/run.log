@@ -1,0 +1,82 @@
+{
+  "anchors": {
+    "gather_GiBs_per_core": {
+      "value": 4.9427,
+      "sd": 0.4549,
+      "N": 5,
+      "class": "SYNTHETIC microbench (exp36 baseline field, M4 NEON lutbw)"
+    },
+    "logical_demand_GiB_per_token": {
+      "value": 17.0085,
+      "class": "established finding"
+    },
+    "baseline_ceiling_tok_s_C10": {
+      "spec_value": 2.978,
+      "recomputed": 2.906,
+      "class": "RECOMPUTATION"
+    },
+    "vq4p_end_to_end_ratio": {
+      "value": 1.0855,
+      "class": "REAL-K3 (exp34, LEARNED s46, medians N=13 vs 5, pinned 7f1fbba3)"
+    },
+    "vq4p_threaded_scaling": {
+      "value": 1.0751,
+      "class": "REAL-K3 (LEARNED s47 via exp34)"
+    },
+    "sprint11_sha256": "1cfd9927fce60aea5ec220405923641821537431e8e3ab599837f2300d772295",
+    "sprint11_rows": 6348
+  },
+  "arms": {
+    "arm2_vq4p_alone": {
+      "claimed_tok_s_C10": 13.349,
+      "measured_ratio_end_to_end": 1.0855,
+      "tok_s_C10_under_measured_ratio_end_to_end": 3.233,
+      "tok_s_C10_under_measured_ratio_threaded": 3.202,
+      "class": "RECOMPUTATION over REAL-K3 anchors"
+    },
+    "arm5_required_skip_end_to_end": {
+      "arm2_tok_s": 3.233,
+      "required_certified_skip_fraction_all_selected": 0.7845,
+      "required_bound_for_that_skip_REAL_K3_curve": 0.00010949,
+      "note": "certifier can only REMOVE experts from gather: tok/s <= arm2/(1-s)",
+      "class": "RECOMPUTATION; bound from REAL-K3 sprint11 curve (unconditional)"
+    },
+    "arm5_required_skip_threaded": {
+      "arm2_tok_s": 3.202,
+      "required_certified_skip_fraction_all_selected": 0.7866,
+      "required_bound_for_that_skip_REAL_K3_curve": 0.00010895,
+      "note": "certifier can only REMOVE experts from gather: tok/s <= arm2/(1-s)",
+      "class": "RECOMPUTATION; bound from REAL-K3 sprint11 curve (unconditional)"
+    },
+    "arm5_at_idea16_accept_gate2_bound_5.35e-4": {
+      "bound": 0.000534724,
+      "s_cert_unconditional_REAL_K3": 0.3375,
+      "arm5_tok_s_C10_end_to_end": 4.88,
+      "arm5_tok_s_C10_threaded": 4.833,
+      "class": "RECOMPUTATION; s_cert from REAL-K3 sprint11 curve"
+    },
+    "arm5_at_exp12_reject_gate1_bound_9.69e-4": {
+      "bound": 0.000968677,
+      "s_cert_unconditional_REAL_K3": 0.2461,
+      "arm5_tok_s_C10_end_to_end": 4.288,
+      "arm5_tok_s_C10_threaded": 4.247,
+      "class": "RECOMPUTATION; s_cert from REAL-K3 sprint11 curve"
+    },
+    "arm5_at_bound_1e-4_reference": {
+      "bound": 0.0001,
+      "s_cert_unconditional_REAL_K3": 0.8233,
+      "arm5_tok_s_C10_end_to_end": 18.29,
+      "arm5_tok_s_C10_threaded": 18.114,
+      "class": "RECOMPUTATION; s_cert from REAL-K3 sprint11 curve"
+    }
+  },
+  "verdict_arithmetic": {
+    "accept_gate_quote": "arm5 reaches >=15.0 tok/s at C=10 at the fixed point, while neither arm2 nor arm4 does",
+    "arm2_measured_tok_s_C10": 3.233,
+    "arm5_tok_s_C10_at_evidence_backed_bound": 4.88,
+    "shortfall_factor_vs_15": 3.07,
+    "skip_needed_for_15_end_to_end": 0.7845,
+    "skip_bought_at_evidence_backed_bound": 0.3375,
+    "note": "fixed-point (mismatch #9) refinement cannot rescue: compute ceiling is a hard upper bound on tok/s; arm5 ceiling < 15 at every bound magnitude with preregistered evidence backing"
+  }
+}
