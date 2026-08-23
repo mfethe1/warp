@@ -1,0 +1,55 @@
+{
+  "experiment": "exp34",
+  "stage": 1,
+  "label": "RECOMPUTATION",
+  "source_sha": "7f1fbba3cbaee0e9fdaffd940d87ff2dba9ee09b",
+  "expert_shape": {
+    "n_matrices": 3,
+    "n_in": 3072,
+    "n_out": 3584,
+    "weights": 33030144,
+    "vectors": 4128768
+  },
+  "vq3r": {
+    "name": "VQ3R",
+    "stages": 3,
+    "entries": 256,
+    "index_bits": 8,
+    "bits_per_weight": 3.0,
+    "index_bytes_per_vector": 3,
+    "index_bytes": 12386304,
+    "corr_bytes": 18432,
+    "raw_bytes": 12404784,
+    "pages": 3029,
+    "record_bytes": 12406784,
+    "table_bytes_per_stage": 2048,
+    "page_aligned": true
+  },
+  "vq4p": {
+    "name": "VQ4P",
+    "stages": 4,
+    "entries": 64,
+    "index_bits": 6,
+    "bits_per_weight": 3.0,
+    "index_bytes_per_vector": 3,
+    "index_bytes": 12386304,
+    "corr_bytes": 18432,
+    "raw_bytes": 12404784,
+    "pages": 3029,
+    "record_bytes": 12406784,
+    "table_bytes_per_stage": 512,
+    "page_aligned": true
+  },
+  "checks": {
+    "both_exactly_3.00_bits_per_weight": true,
+    "both_exactly_3_index_bytes_per_vector": true,
+    "index_payload_byte_identical": true,
+    "record_bytes_identical": true,
+    "page_count_identical": true,
+    "record_is_12406784B": true,
+    "record_is_3029_pages": true,
+    "vq4p_6bit_packing_bijective": true,
+    "packing_cases_tested": 147456
+  },
+  "d_bytes_per_token_d_format": 0
+}

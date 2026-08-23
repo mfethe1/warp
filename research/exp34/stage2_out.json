@@ -1,0 +1,147 @@
+{
+  "experiment": "exp34",
+  "stage": 2,
+  "label": "SYNTHETIC",
+  "note": "synthetic weights + synthetic activation covariance; encoder is WARP's own vq.c at pinned SHA",
+  "source_sha": "7f1fbba3cbaee0e9fdaffd940d87ff2dba9ee09b",
+  "vq_c_sha256": "eb797e7c9c227f3fd29a6542ec0d557d646b5377e65297c835eb16151c360251",
+  "N": 5,
+  "lloyd_iters": 12,
+  "vq3r_aw_mean": 0.19752501032847114,
+  "vq3r_aw_sd": 0.003946635251859935,
+  "vq4p_aw_mean": 0.21888693882660726,
+  "vq4p_aw_sd": 0.003973916636118217,
+  "degradation_pct_mean": 10.81808662715314,
+  "degradation_pct_sd": 0.2325184452064242,
+  "degradation_pct_min": 10.56153020581445,
+  "degradation_pct_max": 11.154473383654958,
+  "accept_gate_within_5pct": false,
+  "reject_gate_worse_than_15pct": false,
+  "runs": [
+    {
+      "VQ3R": {
+        "stages": 3,
+        "entries": 256,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.19276675092026874,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.19789557532767946,
+        "fit_seconds": 0.3
+      },
+      "VQ4P": {
+        "stages": 4,
+        "entries": 64,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.2138309195658186,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.2190694995727695,
+        "fit_seconds": 0.1
+      },
+      "vq4p_relative_degradation_pct": 10.927283125844829,
+      "seed": 1,
+      "vectors": 196608,
+      "shape": [
+        512,
+        3072
+      ]
+    },
+    {
+      "VQ3R": {
+        "stages": 3,
+        "entries": 256,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.20145771551950473,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.19818865677372854,
+        "fit_seconds": 0.3
+      },
+      "VQ4P": {
+        "stages": 4,
+        "entries": 64,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.22273473299604096,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.21936923396226565,
+        "fit_seconds": 0.2
+      },
+      "vq4p_relative_degradation_pct": 10.56153020581445,
+      "seed": 2,
+      "vectors": 196608,
+      "shape": [
+        512,
+        3072
+      ]
+    },
+    {
+      "VQ3R": {
+        "stages": 3,
+        "entries": 256,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.19936536362436336,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.19902476173572267,
+        "fit_seconds": 0.3
+      },
+      "VQ4P": {
+        "stages": 4,
+        "entries": 64,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.22086648007905327,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.22051047541638807,
+        "fit_seconds": 0.1
+      },
+      "vq4p_relative_degradation_pct": 10.784780296742767,
+      "seed": 3,
+      "vectors": 196608,
+      "shape": [
+        512,
+        3072
+      ]
+    },
+    {
+      "VQ3R": {
+        "stages": 3,
+        "entries": 256,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.20020310193575966,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.19995877028961961,
+        "fit_seconds": 0.3
+      },
+      "VQ4P": {
+        "stages": 4,
+        "entries": 64,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.22154948965517207,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.221295033468644,
+        "fit_seconds": 0.1
+      },
+      "vq4p_relative_degradation_pct": 10.662366123708688,
+      "seed": 4,
+      "vectors": 196608,
+      "shape": [
+        512,
+        3072
+      ]
+    },
+    {
+      "VQ3R": {
+        "stages": 3,
+        "entries": 256,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.1938321196424591,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.2003074260407392,
+        "fit_seconds": 0.3
+      },
+      "VQ4P": {
+        "stages": 4,
+        "entries": 64,
+        "bits_per_weight": 3.0,
+        "act_weighted_rel_err": 0.21545307183695145,
+        "frobenius_rel_err_DIAGNOSTIC_ONLY": 0.22228302457636478,
+        "fit_seconds": 0.1
+      },
+      "vq4p_relative_degradation_pct": 11.154473383654958,
+      "seed": 5,
+      "vectors": 196608,
+      "shape": [
+        512,
+        3072
+      ]
+    }
+  ]
+}
