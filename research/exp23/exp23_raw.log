@@ -1,0 +1,111 @@
+==========================================================================
+A. PREREGISTERED BANDWIDTH LADDER  [RECOMPUTATION]
+==========================================================================
+ agg BW GiB/s  req B/tok GiB     gap x   ms/token  tok/s @7.719
+        5.919         0.3946    19.562     1304.1        0.7668
+        9.000         0.6000    12.865      857.7        1.1660
+       12.000         0.8000     9.649      643.2        1.5546
+       18.000         1.2000     6.433      428.8        2.3319
+
+==========================================================================
+B. IMBALANCE / QUEUE-DEPTH PENALTY  (batch-1, top-16, per-layer barrier)
+==========================================================================
+ devices   ideal  shard E[max]  shard tax  dup makespan  dup tax
+       2   8.000        9.5710    1.1964x             8  1.0000x
+       3   5.333        7.3334    1.3750x             6  1.1250x
+       4   4.000        6.1390    1.5348x             4  1.0000x
+
+==========================================================================
+C. BYTE AMPLIFICATION  [RECOMPUTATION -- the decisive audit point]
+==========================================================================
+READ  amplification, duplicate container : 0.000%
+READ  amplification, sharded  container : 0.000%
+STORE amplification, 2x duplicate      : 100.0%  (1904 GiB stored)
+STORE amplification, 3x duplicate      : 200.0%  (2856 GiB stored)
+STORE amplification, 4x duplicate      : 300.0%  (3808 GiB stored)
+NOTE: the ACCEPT gate says 'physical-byte amplification <=1%'. Read and
+      stored amplification are DIFFERENT quantities; only READ bytes
+      appear in bytes/accepted token. Recorded as an audit finding.
+Page-rounding read waste: 0 B on 12406784 B = 0.0000%  (record is exactly 3029 pages)
+
+==========================================================================
+D. CAPACITY  (952 GiB VQ3R)
+==========================================================================
+2TB-class usable: 1862.6 GiB
+  2x  duplicate:   952.0 GiB/dev (FITS, 51.1% full)   sharded:   476.0 GiB/dev (FITS)
+  3x  duplicate:   952.0 GiB/dev (FITS, 51.1% full)   sharded:   317.3 GiB/dev (FITS)
+  4x  duplicate:   952.0 GiB/dev (FITS, 51.1% full)   sharded:   238.0 GiB/dev (FITS)
+
+==========================================================================
+E. PLATFORM PCIe LANE CONSTRAINT  [PROJECTION -- decisive for >12 GiB/s]
+==========================================================================
+Consumer AM5: CPU-direct = 1x Gen5 x4 M.2 + 1x Gen4 x4 M.2.
+Extra M.2 slots hang off the chipset, which shares ONE Gen4 x4 uplink
+= 6.719 GiB/s derated TOTAL for all chipset devices.
+=> naive '4 drives on the motherboard' does NOT give 4x bandwidth.
+WARP runs CPU-only streaming inference: the x16 GPU link is UNUSED.
+Bifurcating x16 -> 4x x4 via a passive carrier gives 4 CPU-direct NVMe.
+
+==========================================================================
+F. BUILD CONFIGURATIONS  [PROJECTION, derated spec sheets]
+==========================================================================
+config                             aggGiB/s    gain   gap x  ms/tok   $SSD   $rig  cap
+--------------------------------------------------------------------------------------
+1x 990 Pro (BASELINE, measured)       5.919    0.0%  19.561  1304.0    150   2160   ok
+2x 990 Pro duplicate                 11.839  100.0%   9.780   652.0    300   2310   ok
+2x 990 Pro sharded (uniform hash)     9.895   67.2%  11.701   780.1    300   2310   ok
+3x 990 Pro duplicate                 15.785  166.7%   7.335   489.0    520   2530   ok
+3x 990 Pro sharded                   12.915  118.2%   8.965   597.7    520   2530   ok
+4x 990 Pro duplicate (bifurc)        23.677  300.0%   4.890   326.0    670   2680   ok
+4x 990 Pro sharded (bifurc)          15.427  160.6%   7.505   500.3    670   2680   ok
+2x 9100 Pro Gen5 duplicate           23.518  297.3%   4.923   328.2    460   2470   ok
+4x 9100 Pro Gen5 duplicate           47.037  694.7%   2.462   164.1    990   3000   ok
+4x 9100 Pro Gen5 sharded             30.648  417.8%   3.778   251.9    990   3000   ok
+
+==========================================================================
+G. DOLLARS PER UNIT OF GAP CLOSED  [RECOMPUTATION]
+==========================================================================
+config                              d$ SSD   +GiB/s   $/GiB/s  gap closed   $/gapx
+2x 990 Pro duplicate                   150    5.919     25.34       9.780       15
+2x 990 Pro sharded (uniform hash)      150    3.976     37.73       7.860       19
+3x 990 Pro duplicate                   370    9.866     37.50      12.225       30
+3x 990 Pro sharded                     370    6.995     52.89      10.595       35
+4x 990 Pro duplicate (bifurc)          520   17.758     29.28      14.670       35
+4x 990 Pro sharded (bifurc)            520    9.508     54.69      12.055       43
+2x 9100 Pro Gen5 duplicate             310   17.599     17.61      14.637       21
+4x 9100 Pro Gen5 duplicate             840   41.117     20.43      17.099       49
+4x 9100 Pro Gen5 sharded               840   24.728     33.97      15.783       53
+
+==========================================================================
+H. PREREGISTERED GATE EVALUATION
+==========================================================================
+2x 990 Pro duplicate               BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+2x 990 Pro sharded (uniform hash)  BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+3x 990 Pro duplicate               BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+3x 990 Pro sharded                 BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+4x 990 Pro duplicate (bifurc)      BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+4x 990 Pro sharded (bifurc)        BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+2x 9100 Pro Gen5 duplicate         BW>=20%:Y amp<=1%:Y rig<$3k:Y cap:Y  -> ACCEPT
+4x 9100 Pro Gen5 duplicate         BW>=20%:Y amp<=1%:Y rig<$3k:N cap:Y  -> reject
+4x 9100 Pro Gen5 sharded           BW>=20%:Y amp<=1%:Y rig<$3k:N cap:Y  -> reject
+
+==========================================================================
+I. COUPLING TO CPU-SIDE DEQUANT (exp20 dependency)
+==========================================================================
+Raising aggregate BW only helps while VQ3R dequant keeps up. At
+aggregate B GiB/s the dequant loop must sustain B GiB/s of 3-bit-index
+-> dim-8 codeword expansion. exp20 is measuring exactly that ceiling.
+If dequant sustains D GiB/s aggregate, usable BW = min(B, D).
+  1x 990 Pro (BASELINE, measured)    needs dequant >=   5.92 GiB/s
+  2x 990 Pro duplicate               needs dequant >=  11.84 GiB/s
+  2x 990 Pro sharded (uniform hash)  needs dequant >=   9.90 GiB/s
+  3x 990 Pro duplicate               needs dequant >=  15.78 GiB/s
+  3x 990 Pro sharded                 needs dequant >=  12.91 GiB/s
+  4x 990 Pro duplicate (bifurc)      needs dequant >=  23.68 GiB/s
+  4x 990 Pro sharded (bifurc)        needs dequant >=  15.43 GiB/s
+  2x 9100 Pro Gen5 duplicate         needs dequant >=  23.52 GiB/s
+  4x 9100 Pro Gen5 duplicate         needs dequant >=  47.04 GiB/s
+  4x 9100 Pro Gen5 sharded           needs dequant >=  30.65 GiB/s
+
+{"summary_keys": ["labels", "derate", "established", "ladder", "imbalance", "amplification", "platform_note", "configs", "economics", "gates"]}
+wrote evidence/exp23_dual_ssd_model.json
