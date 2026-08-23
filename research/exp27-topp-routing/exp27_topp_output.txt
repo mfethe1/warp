@@ -1,0 +1,32 @@
+trace: 2208 (tok,layer) rows = 24 tokens x 92 layers, 896 experts/layer
+
+cumulative top-16 router mass retained by prefix length (REAL-K3 scores):
+  top- 1: mean cum mass = 0.1438  sd = 0.0580  (N=2208)
+  top- 2: mean cum mass = 0.2438  sd = 0.0725  (N=2208)
+  top- 4: mean cum mass = 0.3969  sd = 0.0803  (N=2208)
+  top- 8: mean cum mass = 0.6290  sd = 0.0646  (N=2208)
+  top-12: mean cum mass = 0.8229  sd = 0.0353  (N=2208)
+  top-14: mean cum mass = 0.9130  sd = 0.0182  (N=2208)
+  top-16: mean cum mass = 1.0000  sd = 0.0000  (N=2208)
+
+p -> experts/token, reduction vs 16, KL=-log(cum) [mean over 2208 rows], bytes/token:
+  p=0.5    ->  6.12 exp/layer (  563.0/tok), reduction 61.76%, KL(mean)=0.63626 (sd 0.0342), 6.505 GiB/tok
+  p=0.6    ->  7.86 exp/layer (  723.2/tok), reduction 50.87%, KL(mean)=0.46587 (sd 0.0251), 8.356 GiB/tok
+  p=0.7    ->  9.76 exp/layer (  898.1/tok), reduction 38.99%, KL(mean)=0.32200 (sd 0.0210), 10.378 GiB/tok
+  p=0.8    -> 11.86 exp/layer ( 1091.5/tok), reduction 25.85%, KL(mean)=0.19432 (sd 0.0161), 12.612 GiB/tok
+  p=0.85   -> 12.98 exp/layer ( 1193.9/tok), reduction 18.89%, KL(mean)=0.13541 (sd 0.0159), 13.795 GiB/tok
+  p=0.9    -> 14.12 exp/layer ( 1299.5/tok), reduction 11.72%, KL(mean)=0.08000 (sd 0.0164), 15.015 GiB/tok
+  p=0.92   -> 14.60 exp/layer ( 1343.2/tok), reduction  8.75%, KL(mean)=0.05865 (sd 0.0129), 15.521 GiB/tok
+  p=0.94   -> 14.98 exp/layer ( 1378.0/tok), reduction  6.38%, KL(mean)=0.04347 (sd 0.0121), 15.923 GiB/tok
+  p=0.95   -> 15.24 exp/layer ( 1401.8/tok), reduction  4.77%, KL(mean)=0.03022 (sd 0.0183), 16.198 GiB/tok
+  p=0.96   -> 15.60 exp/layer ( 1435.5/tok), reduction  2.48%, KL(mean)=0.01376 (sd 0.0172), 16.587 GiB/tok
+  p=0.97707 -> 15.99 exp/layer ( 1471.5/tok), reduction  0.03%, KL(mean)=0.00012 (sd 0.0016), 17.003 GiB/tok
+  p=0.98   -> 16.00 exp/layer ( 1472.0/tok), reduction  0.00%, KL(mean)=0.00001 (sd 0.0004), 17.008 GiB/tok
+  p=0.99   -> 16.00 exp/layer ( 1472.0/tok), reduction  0.00%, KL(mean)=0.00000 (sd 0.0000), 17.009 GiB/tok
+
+GATE @ KL bar 0.0232 (cum>=0.97707):
+  experts/layer 15.995 -> 1471.5/token, reduction 0.03% (accept needs >=15%)  mean KL 0.00012
+  keep-count histogram: {15: 12, 16: 2196}
+
+N = 2208 (tok,layer) routing decisions; single trace, 24 decode tokens
+wrote exp27_topp_sweep.json

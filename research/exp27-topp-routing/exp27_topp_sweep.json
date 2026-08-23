@@ -1,0 +1,118 @@
+{
+  "trace_rows": 2208,
+  "tokens": 24,
+  "layers": 92,
+  "sweep": [
+    {
+      "p": 0.5,
+      "experts_per_token": 562.96,
+      "pct_reduction": 61.76,
+      "kl": 0.63626,
+      "kl_sd": 0.03418,
+      "gib_per_token": 6.505
+    },
+    {
+      "p": 0.6,
+      "experts_per_token": 723.17,
+      "pct_reduction": 50.87,
+      "kl": 0.46587,
+      "kl_sd": 0.02506,
+      "gib_per_token": 8.356
+    },
+    {
+      "p": 0.7,
+      "experts_per_token": 898.12,
+      "pct_reduction": 38.99,
+      "kl": 0.322,
+      "kl_sd": 0.02101,
+      "gib_per_token": 10.378
+    },
+    {
+      "p": 0.8,
+      "experts_per_token": 1091.54,
+      "pct_reduction": 25.85,
+      "kl": 0.19432,
+      "kl_sd": 0.0161,
+      "gib_per_token": 12.612
+    },
+    {
+      "p": 0.85,
+      "experts_per_token": 1193.92,
+      "pct_reduction": 18.89,
+      "kl": 0.13541,
+      "kl_sd": 0.0159,
+      "gib_per_token": 13.795
+    },
+    {
+      "p": 0.9,
+      "experts_per_token": 1299.46,
+      "pct_reduction": 11.72,
+      "kl": 0.08,
+      "kl_sd": 0.0164,
+      "gib_per_token": 15.015
+    },
+    {
+      "p": 0.92,
+      "experts_per_token": 1343.25,
+      "pct_reduction": 8.75,
+      "kl": 0.05865,
+      "kl_sd": 0.01287,
+      "gib_per_token": 15.521
+    },
+    {
+      "p": 0.94,
+      "experts_per_token": 1378.04,
+      "pct_reduction": 6.38,
+      "kl": 0.04347,
+      "kl_sd": 0.01207,
+      "gib_per_token": 15.923
+    },
+    {
+      "p": 0.95,
+      "experts_per_token": 1401.83,
+      "pct_reduction": 4.77,
+      "kl": 0.03022,
+      "kl_sd": 0.01831,
+      "gib_per_token": 16.198
+    },
+    {
+      "p": 0.96,
+      "experts_per_token": 1435.54,
+      "pct_reduction": 2.48,
+      "kl": 0.01376,
+      "kl_sd": 0.01721,
+      "gib_per_token": 16.587
+    },
+    {
+      "p": 0.97707,
+      "experts_per_token": 1471.5,
+      "pct_reduction": 0.03,
+      "kl": 0.00012,
+      "kl_sd": 0.0016,
+      "gib_per_token": 17.003
+    },
+    {
+      "p": 0.98,
+      "experts_per_token": 1471.96,
+      "pct_reduction": 0.0,
+      "kl": 1e-05,
+      "kl_sd": 0.00042,
+      "gib_per_token": 17.008
+    },
+    {
+      "p": 0.99,
+      "experts_per_token": 1472.0,
+      "pct_reduction": 0.0,
+      "kl": 0.0,
+      "kl_sd": 0.0,
+      "gib_per_token": 17.009
+    }
+  ],
+  "gate": {
+    "kl_bar": 0.0232,
+    "cum_bar": 0.9770670508204692,
+    "experts_per_layer": 15.994565217391305,
+    "reduction_pct": 0.033967391304345895,
+    "accept": false
+  }
+}
