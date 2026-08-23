@@ -1,0 +1,14 @@
+{
+ "engine_diag_mean_corr": 0.5259761646593184,
+ "C_u_K722_mean_pct": 31.354759119941995,
+ "C_u_K722_min_pct": 22.535796710570594,
+ "C_u_K722_max_pct": 94.9611441551736,
+ "sample_top24_capture_mean_pct": 100.0,
+ "eig24_share_mean_pct": 0.6035698163323676,
+ "required_avg_share_25_722_pct": 0.0,
+ "required_tail_drop_factor": Infinity,
+ "diag_whitening_noop_layer50": {
+  "unwhitened_pct": 49.36422535186126,
+  "whitened_same_denom_pct": 4.56688624440988
+ }
+}
