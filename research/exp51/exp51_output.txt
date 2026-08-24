@@ -1,0 +1,28 @@
+trace sha256 06ad026c928d1c05eb59f0b1db55e1317c1899b1d3a687741ab5c49fdc014965
+tokens 300 layers 26 topk 8 distinct 5083
+
+== cap 1490 ==
+  N=7800  E[K]=2.4085  K-dist={0: 713, 1: 1638, 2: 2035, 3: 1676, 4: 981, 5: 514, 6: 172, 7: 44, 8: 27}
+  q=1: capture E[min(K,q)]/E[K]=0.3772  E[ceil(K/q)]=2.4085  P(K>=q)=0.9086
+  q=2: capture E[min(K,q)]/E[K]=0.6673  E[ceil(K/q)]=1.4524  P(K>=q)=0.6986
+  q=4: capture E[min(K,q)]/E[K]=0.9416  E[ceil(K/q)]=1.0056  P(K>=q)=0.2228
+  q=8: capture E[min(K,q)]/E[K]=1.0000  E[ceil(K/q)]=0.9086  P(K>=q)=0.0035
+  wave_red q2->q4 = 0.3076   wave_red q4->q8 = 0.0965
+
+== cap 709 ==
+  N=7800  E[K]=3.5871  K-dist={0: 193, 1: 732, 2: 1264, 3: 1720, 4: 1559, 5: 1219, 6: 682, 7: 312, 8: 119}
+  q=1: capture E[min(K,q)]/E[K]=0.2719  E[ceil(K/q)]=3.5871  P(K>=q)=0.9753
+  q=2: capture E[min(K,q)]/E[K]=0.5176  E[ceil(K/q)]=2.0488  P(K>=q)=0.8814
+  q=4: capture E[min(K,q)]/E[K]=0.8572  E[ceil(K/q)]=1.2742  P(K>=q)=0.4988
+  q=8: capture E[min(K,q)]/E[K]=1.0000  E[ceil(K/q)]=0.9753  P(K>=q)=0.0153
+  wave_red q2->q4 = 0.3781   wave_red q4->q8 = 0.2346
+
+== cap 2980 ==
+  N=7800  E[K]=1.2146  K-dist={0: 2714, 1: 2552, 2: 1419, 3: 676, 4: 265, 5: 113, 6: 23, 7: 11, 8: 27}
+  q=1: capture E[min(K,q)]/E[K]=0.5368  E[ceil(K/q)]=1.2146  P(K>=q)=0.6521
+  q=2: capture E[min(K,q)]/E[K]=0.8043  E[ceil(K/q)]=0.8222  P(K>=q)=0.3249
+  q=4: capture E[min(K,q)]/E[K]=0.9683  E[ceil(K/q)]=0.6744  P(K>=q)=0.0563
+  q=8: capture E[min(K,q)]/E[K]=1.0000  E[ceil(K/q)]=0.6521  P(K>=q)=0.0035
+  wave_red q2->q4 = 0.1798   wave_red q4->q8 = 0.0331
+
+wrote exp51_results.json
