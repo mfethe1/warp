@@ -145,7 +145,7 @@ def main():
         return 77 if not fails else 1
 
     print("C tokenizer vs the release's own")
-    text, han, specials, digit_run = HFT.convert(PINNED, quiet=True)
+    text, han, specials, digit_run, _pattern = HFT.convert(PINNED, quiet=True)
     ck(not han and digit_run == 1,
        f"the pinned checkpoint reports han={han} digit_run={digit_run}")
     hf = Tokenizer.from_file(os.path.join(PINNED, "tokenizer.json"))
