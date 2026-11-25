@@ -167,3 +167,31 @@ class TestStreamWatermark(ServerTestCase):
             f"stream re-sent already-delivered text: streamed {streamed!r}, "
             f"blocking {blocking!r}",
         )
+
+    def test_post_trim_text_is_not_skipped_against_stale_pre_trim_bytes(self):
+        """Text after a trim must not be matched against the leaked bytes.
+
+        After the trim the client's stream still ends in the leaked
+        "\\n\\n<". Once a regrown character that differs from them is sent
+        ("X"), those stale bytes now sit *before* the send point in the
+        client's stream — but a re-sync that keeps matching new text against
+        them treats the next character that happens to equal one ("\\n") as
+        already delivered and skips it. The text is gone, and out of order:
+        the client has its "\\n" before the "X", not after. Measured at
+        35cc20e: streamed 'a\\n\\n<XY' against blocking 'aX\\nY', and
+        streamed 'a\\n\\n<X\\nY' against blocking 'aX\\n\\nY'.
+
+        As in the second test, the assertion is no silent loss — the blocking
+        answer is a subsequence of the streamed one — so the leaked "\\n\\n<"
+        is not pinned.
+        """
+        for tail in ("X\nY", "X\n\nY"):
+            with self.subTest(tail=tail):
+                reply = dsml.THINK_CLOSE + "a\n\n" + CALL + tail + dsml.EOS
+                blocking, streamed = self.both(reply)
+                self.assertEqual(blocking, "a" + tail, blocking)
+                self.assertTrue(
+                    is_subsequence(blocking, streamed),
+                    f"stream dropped text the blocking reply has: streamed "
+                    f"{streamed!r}, blocking {blocking!r}",
+                )
