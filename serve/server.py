@@ -1081,8 +1081,7 @@ class Handler(BaseHTTPRequestHandler):
         """
         engine = slot.engine
         stops = [s for s in stops if s]
-        state = {"n": 0, "stopped": False, "content_sent": 0,
-                 "sent_text": ""}
+        state = {"n": 0, "stopped": False, "content_sent": 0, "seen": ""}
 
         def stop_at(text):
             hits = [p for s in stops if (p := text.find(s)) >= 0]
@@ -1099,14 +1098,6 @@ class Handler(BaseHTTPRequestHandler):
                         break
             return end
 
-        def common_prefix(held: str, content: str) -> int:
-            """How much of the content the client's text reproduces."""
-            n = min(len(held), len(content))
-            i = 0
-            while i < n and held[i] == content[i]:
-                i += 1
-            return i
-
         def deliver(delta, *, final=False):
             hit = stop_at(parser.content)
             if hit is not None:
@@ -1119,14 +1110,20 @@ class Handler(BaseHTTPRequestHandler):
                 # DSML reader removing a lead-in once a tool-call block
                 # opens, or a stop cut below a held-back suffix. The client
                 # keeps the bytes it was sent; an append-only stream cannot
-                # retract them. Re-align the watermark with what the client
-                # actually holds — the matching prefix of the content — so
-                # bytes the client already has are not sent again, while
-                # text the parser has put in their place still is.
-                sent = common_prefix(state["sent_text"], parser.content)
-            delta.content = parser.content[sent:end]
-            state["sent_text"] += delta.content
-            state["content_sent"] = max(sent, end)
+                # retract them. Drop the watermark to the new end and match
+                # the regrown text below against what the client has seen:
+                # a byte it already holds is not sent again, while the
+                # first byte it does not is new text and goes out.
+                sent = end
+            seen = state["seen"]
+            i = 0
+            while (sent + i < end and sent + i < len(seen)
+                   and parser.content[sent + i] == seen[sent + i]):
+                i += 1
+            delta.content = parser.content[sent + i:end]
+            if end > len(seen):
+                state["seen"] = parser.content[:end]
+            state["content_sent"] = end
             if delta.reasoning or delta.content or delta.tool_calls:
                 on_delta(delta)
             return hit is not None
