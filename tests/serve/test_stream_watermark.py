@@ -141,3 +141,29 @@ class TestStreamWatermark(ServerTestCase):
                 )
                 if not body:
                     self.assertIn("After the call.", streamed)
+
+    def test_second_trim_does_not_resend_text_streamed_after_the_first(self):
+        """Two tool-call blocks, two trims: neither may re-send streamed text.
+
+        Each block's opening "\\n\\n<" is let through and then trimmed, so
+        after the first trim the text the client holds no longer lines up
+        character for character with the parser's content: it still carries
+        the leaked "\\n\\n<". A re-sync that looks for the first place the
+        two diverge finds that old leak rather than the second trim, and
+        re-sends everything after it — "B." a second time. Measured at
+        c4e8469: streamed 'A.\\n\\n<B.\\n\\n<B.' against blocking 'A.B.'.
+
+        As in the first test, only the repeat is pinned; the leaked "<"s
+        are not asserted on.
+        """
+        reply = (
+            dsml.THINK_CLOSE + "A.\n\n" + CALL + "B.\n\n" + CALL + dsml.EOS
+        )
+        blocking, streamed = self.both(reply)
+        self.assertEqual(blocking.count("B."), 1, blocking)
+        self.assertEqual(
+            streamed.count("B."),
+            blocking.count("B."),
+            f"stream re-sent already-delivered text: streamed {streamed!r}, "
+            f"blocking {blocking!r}",
+        )
