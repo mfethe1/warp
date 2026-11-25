@@ -1121,7 +1121,12 @@ class Handler(BaseHTTPRequestHandler):
                    and parser.content[sent + i] == seen[sent + i]):
                 i += 1
             delta.content = parser.content[sent + i:end]
-            if end > len(seen):
+            if end > len(seen) or delta.content:
+                # Sent bytes below the coverage make the stale copies
+                # beyond them unusable: those copies sit earlier in the
+                # client's stream than what was just sent, so matching
+                # against them would skip text out of order. Rewrite seen
+                # to what the client holds now, in order.
                 state["seen"] = parser.content[:end]
             state["content_sent"] = end
             if delta.reasoning or delta.content or delta.tool_calls:
