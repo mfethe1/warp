@@ -1081,7 +1081,8 @@ class Handler(BaseHTTPRequestHandler):
         """
         engine = slot.engine
         stops = [s for s in stops if s]
-        state = {"n": 0, "stopped": False, "content_sent": 0}
+        state = {"n": 0, "stopped": False, "content_sent": 0,
+                 "sent_text": ""}
 
         def stop_at(text):
             hits = [p for s in stops if (p := text.find(s)) >= 0]
@@ -1098,6 +1099,14 @@ class Handler(BaseHTTPRequestHandler):
                         break
             return end
 
+        def common_prefix(held: str, content: str) -> int:
+            """How much of the content the client's text reproduces."""
+            n = min(len(held), len(content))
+            i = 0
+            while i < n and held[i] == content[i]:
+                i += 1
+            return i
+
         def deliver(delta, *, final=False):
             hit = stop_at(parser.content)
             if hit is not None:
@@ -1105,8 +1114,19 @@ class Handler(BaseHTTPRequestHandler):
             end = len(parser.content) if final or hit is not None else safe_content_end(
                 parser.content)
             sent = state["content_sent"]
-            delta.content = parser.content[sent:end] if end >= sent else ""
-            state["content_sent"] = end
+            if end < sent:
+                # The parser took back text the client already holds — the
+                # DSML reader removing a lead-in once a tool-call block
+                # opens, or a stop cut below a held-back suffix. The client
+                # keeps the bytes it was sent; an append-only stream cannot
+                # retract them. Re-align the watermark with what the client
+                # actually holds — the matching prefix of the content — so
+                # bytes the client already has are not sent again, while
+                # text the parser has put in their place still is.
+                sent = common_prefix(state["sent_text"], parser.content)
+            delta.content = parser.content[sent:end]
+            state["sent_text"] += delta.content
+            state["content_sent"] = max(sent, end)
             if delta.reasoning or delta.content or delta.tool_calls:
                 on_delta(delta)
             return hit is not None
