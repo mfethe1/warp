@@ -19,7 +19,7 @@
 Gate quote (accept): ">=15% expert-count reduction at KL <=0.0232". At the bar: reduction **0.03%** (keep histogram: 2196/2208 decisions keep all 16). To reach the 15% reduction you need p≈0.85 → KL 0.135, **5.8× over the bar**. The mixture-weight KL is itself an *optimistic lower bound* on true output divergence, so the falsification is robust.
 
 ## Why
-K3 router mass is flat: mean cumulative mass top-1 = 0.144, top-8 = 0.629, top-12 = 0.823. There is no concentrated head to truncate — the 16th expert still carries ~0.9% mass on average, and dropping it costs −log(1−0.009) ≈ 0.009 per (token,layer), accumulating over 92 layers.
+K3 router mass is flat: mean cumulative mass top-1 = 0.144, top-8 = 0.629, top-12 = 0.823. There is no concentrated head to truncate — the 16th expert carries about 4% on average (more than 2% in 2,196 of the 2,208 decisions), and dropping it costs at least −log(1−0.042) ≈ 0.043 per (token,layer), accumulating over 92 layers.
 
 ## Four gates (external source: colibri)
 1. **REPRODUCTION: PASS.** Colibri's own claim ("--topp 0.7: 30–40% less disk", docs/tuning.md:12) reproduces exactly on the real trace: p=0.7 → 39.0% fewer experts, 10.378 vs 17.009 GiB/token logical.
